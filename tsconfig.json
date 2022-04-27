@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+	  "module": "ES2022",
+	  "noImplicitAny": true,
+	  "removeComments": true,
+	  "preserveConstEnums": true,
+	  "forceConsistentCasingInFileNames": true,
+	  "strict": true,
+	  "sourceMap": true,
+		  "rootDir": "src/scripts/",
+		  "outDir": "tmp/scripts"
+	},
+	"include": ["src/scripts/**/*.ts"]
+}

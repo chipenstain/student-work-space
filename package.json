@@ -1,0 +1,57 @@
+{
+  "name": "studentworkspace",
+  "version": "0.0.1",
+  "description": "web app for automatization education process at colleges",
+  "main": "public/index.html",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chipenstain/student-work-space.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chipenstain/student-work-space/issues"
+  },
+  "homepage": "https://github.com/chipenstain/student-work-space#readme",
+  "keywords": [
+    "student",
+    "webrtc",
+    "video",
+    "audio",
+    "chat",
+    "automatization"
+  ],
+  "author": "chipenstain",
+  "license": "MIT",
+  "dependencies": {
+    "@types/eslint": "^8.4.1",
+    "@types/jquery": "^3.5.14",
+    "@types/q": "^1.5.5",
+    "firebase": "^9.6.10",
+    "jquery": "^3.6.0",
+    "lit": "^2.2.1",
+    "q": "^1.5.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "eslint": "^8.12.0",
+    "grunt": "^1.4.1",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^4.0.0",
+    "grunt-contrib-htmlmin": "^3.1.0",
+    "grunt-contrib-imagemin": "^2.0.1",
+    "grunt-contrib-jasmine": "^3.0.0",
+    "grunt-contrib-pug": "^3.0.0",
+    "grunt-contrib-uglify": "^5.1.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-dart-sass": "^2.0.1",
+    "grunt-newer": "^0.5.4",
+    "grunt-ts": "^4.0.1",
+    "jasmine-browser-runner": "^1.0.0",
+    "jasmine-core": "^4.0.1",
+    "pug": "^3.0.2",
+    "sass": "^1.49.11",
+    "typescript": "^4.6.3"
+  }
+}

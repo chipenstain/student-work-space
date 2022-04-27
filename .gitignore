@@ -1,0 +1,26 @@
+#Project files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+.vs/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+[Oo]bj/
+
+#NODE Modules
+node_modules
+package-lock.json
+
+#Builds
+public
+
+#TMPs
+tmp
