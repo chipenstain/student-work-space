@@ -1,0 +1,60 @@
+$text-dark: #160201;
+$text-light: #fefcdc;
+
+$background-dark: #303030;
+$background-light: #373737;
+
+$border-color-dark: #1e1e1e;
+$border-color-light: #565656;
+
+$contrast-color-type1: #2b2b2b;
+$contrast-color-type2: #ad8548;
+$contrast-color-type3: #000000;
+
+$shadow-color: #222222;
+
+$color-disabled: #ab4848;
+$color-enabled: #48ab5e;
+
+*{color:$text-light}
+
+header, footer
+{
+	background-color: $background-light;
+}
+
+header
+{
+	box-shadow: 0px 2px 9px $shadow-color;
+}
+
+footer
+{
+	box-shadow: 0px -2px 9px $shadow-color;
+}
+
+main
+{
+	background-color: $background-dark;
+}
+
+div#app-container
+{
+	border-color: $border-color-light;
+}
+
+.btn
+{
+	background-color: $contrast-color-type1;
+	border-color: $border-color-dark;
+}
+
+.enabled-btn
+{
+	background-color: $color-enabled;
+}
+
+.disabled-btn
+{
+	background-color: $color-disabled;
+}

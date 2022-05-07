@@ -6,12 +6,12 @@ module.exports = function(grunt) {
 				options: {
 					basedir: "./",
 					pretty: true,
-					debug: false,
+					debug: false
 				},
 				files: [{
 					expand: true,
 					cwd: "src/views/",
-					src: ["**/*.pug"],
+					src: ["**/*.pug", "../main.pug", "!inc/**/*.pug"],
 					dest: "tmp/views/",
 					ext: ".html"
 				}]
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: "src/styles",
-					src: ["**/*.scss"],
+					src: ["**/*.scss", "!inc/**/*.scss"],
 					dest: "tmp/styles/",
 					ext: ".css"
 				}]
@@ -59,7 +59,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: "tmp/views",
-					src: ["**/*.html"],
+					src: ["**/*.html", "../main.html"],
 					dest: "public/views/",
 					ext: ".min.html"
 				}]
@@ -85,18 +85,18 @@ module.exports = function(grunt) {
 		//=========IMG min============
 		imagemin: {
 			default: {
-					options: {
-							optimizationLevel: 5,
-							progressive: true,
-							interlaced: true,
-							svgoPlugins: [{removeViewBox: false}],
-					},
-					files: [{
-						expand: true,
-						cwd: "src/images",
-						src: ["**/*.{ico,jpg,jpeg,png,gif,svg}"],
-						dest: "public/images/"
-					}]
+				options: {
+					optimizationLevel: 5,
+					progressive: true,
+					interlaced: true,
+					svgoPlugins: [{removeViewBox: false}]
+				},
+				files: [{
+					expand: true,
+					cwd: "src/images",
+					src: ["**/*.{ico,jpg,jpeg,png,gif,svg}"],
+					dest: "public/images/"
+				}]
 			}
 		},
 
@@ -110,9 +110,9 @@ module.exports = function(grunt) {
 				},
 				files: [{
 					expand: true,
-					cwd: "tmp/js",
+					cwd: "tmp/scripts",
 					src: ["**/*.js"],
-					dest: "public/js/",
+					dest: "public/scripts/",
 					ext: ".min.js"
 				}]
 			}
@@ -120,47 +120,29 @@ module.exports = function(grunt) {
 
 		//===========WATCH============
 		watch: {
-			scripts: {
-				std: {
-					files: ["src/scripts/**/*.ts"],
-					tasks: ["newer:ts"]
-				},
-				inc: {
-					files: ["src/inc/scripts/**/*.ts"],
-					tasks: ["newer:ts"]
-				},
-				min:{
-					files: ["tmp/scripts/**/*.js"],
-					tasks: ["newer:uglify"]
-				}
+			'scripts-std': {
+				files: ["src/scripts/**/*.ts"],
+				tasks: ["newer:ts"]
 			},
-			styles: {
-				std: {
-					files: ["src/styles/**/*.scss"],
-					tasks: ["newer:sass"]
-				},
-				inc: {
-					files: ["src/inc/styles/**/*.scss"],
-					tasks: ["newer:sass"]
-				},
-				min:{
-					files: ["tmp/styles/**/*.css"],
-					tasks: ["newer:cssmin"]
-				}
+			'scripts-min':{
+				files: ["tmp/scripts/**/*.js"],
+				tasks: ["newer:uglify"]
 			},
-			templates: {
-				std: {
-					files: ["src/views/**/*.pug"],
-					tasks: ["newer:pug"]
-				},
-				inc: {
-					files: ["src/inc/views/**/*.pug"],
-					tasks: ["newer:pug"]
-				},
-				min:{
-					files: ["tmp/views/**/*.html"],
-					tasks: ["newer:htmlmin"]
-				}
+			'styles-std': {
+				files: ["src/styles/**/*.scss"],
+				tasks: ["newer:dart-sass"]
+			},
+			'styles-min':{
+				files: ["tmp/styles/**/*.css"],
+				tasks: ["newer:cssmin"]
+			},
+			'templates-std': {
+				files: ["src/views/**/*.pug", "src/main.pug"],
+				tasks: ["newer:pug"]
+			},
+			'templates-min':{
+				files: ["tmp/views/**/*.html", "tmp/main.html"],
+				tasks: ["newer:htmlmin"]
 			},
 			img: {
 				files: ["src/img/**/*.{ico,jpg,jpeg,png,gif,svg}"],
@@ -170,7 +152,7 @@ module.exports = function(grunt) {
 
 		//==========CLEAN TMP===========
 		clean: {
-			default: ["tmp/**/*/", "public/**/*/"]
+			default: ["tmp/**/*", "public/**/*"]
 		}
 
 		//=========COPY PROJECTS FILES==========
@@ -189,13 +171,12 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-contrib-htmlmin");
 	grunt.loadNpmTasks("grunt-contrib-imagemin");
 	grunt.loadNpmTasks("grunt-contrib-pug");
-	grunt.loadNpmTasks("grunt-contrib-sass");
+	grunt.loadNpmTasks("grunt-dart-sass");
 	grunt.loadNpmTasks("grunt-contrib-uglify");
 	grunt.loadNpmTasks("grunt-contrib-watch");
-	grunt.loadNpmTasks("grunt-eslint");
 	grunt.loadNpmTasks("grunt-ts");
 	grunt.loadNpmTasks("grunt-newer");
-	
+
 	grunt.registerTask("build", ["ts", "dart-sass", "pug", "htmlmin", "cssmin", "imagemin", "uglify"]);
 	grunt.registerTask("build_clean", ["clean", "build"]);
 	grunt.registerTask("build_watch", ["build", "watch"]);
