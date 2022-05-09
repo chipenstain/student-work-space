@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.min.css">
+    <link id="theme-holder" rel="stylesheet" href="styles/themes/dark.min.css">
+    <link id="view-theme-holder" rel="stylesheet" href="styles/home.min.css">
+    <link rel="shortcut icon" href="images/icons/favicon.png" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script defer src="/__/firebase/5.9.3/firebase-app.js"></script>
+    <script defer src="/__/firebase/5.9.3/firebase-firestore.js"></script>
+    <!--<script defer src="/__/firebase/init.js?useEmulator=true"></script>-->
+    <script type="module" src="scripts/fb.js"></script>
+    <title>SWS | Student Work Space</title>
+  </head>
+  <body>
+    <header>
+      <div class="btn"><a href="http://">
+          <button>About</button></a></div>
+      <div id="logo"><a href="http://"><img src="images/logo.png" alt="Student Work Space"></a></div>
+      <div class="btn"><a href="http://">
+          <button>Help</button></a></div>
+    </header>
+    <main>
+      <div id="app-container">
+        <div id="loading-bar"><img src="images/icons/load.png" alt="load"></div>
+        <div class="content" id="home">
+          <div class="btn">
+            <div><span class="title">I'm teacher</span><span>Full name</span>
+              <input class="btn" type="text" placeholder="Ivanov Ivan Ivanovich">
+            </div>
+            <div class="btn enabled-btn" id="teacher-mode"><a>
+                <button>Make call</button></a></div>
+          </div>
+          <div class="btn">
+            <div><span class="title">I'm student</span><span>Full name</span>
+              <input class="btn" type="text" placeholder="Ivanov Ivan Ivanovich"><span>Call ID</span>
+              <input id="call-key" class="btn" type="text" placeholder="0asdsadad01210">
+            </div>
+            <div class="btn enabled-btn" id="student-mode"><a>
+                <button>Join call</button></a></div>
+          </div>
+        </div>
+        <div class="content" id="student_client">
+          <div class="main-panel">
+            <div class="general-panel"></div>
+            <div class="sub-panel">
+              <div class="query-list">
+                <div class="title">Theme</div>
+                <div></div>
+              </div>
+              <div class="query-list">
+                <div class="title">Tasks</div>
+                <div></div>
+              </div>
+            </div>
+          </div>
+          <div class="control-panel">
+            <div class="general-panel">
+              <div class="btn disabled-btn end-call-btn"><a><img src="images/icons/phone.png">
+                  <button>End Call</button></a></div>
+              <div class="btn wait-btn mic-btn"><a><img src="images/icons/mic.png">
+                  <button></button></a></div>
+              <div class="btn wait-btn video-btn"><a><img src="images/icons/video.png">
+                  <button></button></a></div>
+            </div>
+            <div class="sub-panel">
+              <div class="btn"><a>
+                  <button>Files</button></a></div>
+              <div class="btn"><a>
+                  <button>Send task</button></a></div>
+            </div>
+          </div>
+        </div>
+        <div class="content" id="teacher_client">
+          <div class="main-panel">
+            <div class="general-panel"></div>
+            <div class="sub-panel">
+              <div class="query-list">
+                <div class="title">Query</div>
+                <div></div>
+              </div>
+            </div>
+          </div>
+          <div class="control-panel">
+            <div class="general-panel">
+              <div class="btn disabled-btn end-call-btn"><a><img src="images/icons/phone.png">
+                  <button>End Call</button></a></div>
+              <div class="btn wait-btn mic-btn"><a><img src="images/icons/mic.png">
+                  <button></button></a></div>
+              <div class="btn wait-btn video-btn"><a><img src="images/icons/video.png">
+                  <button></button></a></div>
+            </div>
+            <div class="sub-panel">
+              <div class="btn"><a>
+                  <button>Tasks</button></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div><span id="copyright">&#169;chipenstain 2022</span><a href="https://www.flaticon.com/free-icons/camera" title="camera icons">Camera icons created by Freepik - Flaticon</a><a href="https://www.flaticon.com/free-icons/refresh" title="loading icons">Refresh icons created by Roundicons - Flaticon</a></div>
+    </footer>
+  </body>
+</html>
