@@ -42,7 +42,6 @@ $(function() {
 });
 
 function ChangeView(view : VIEWS) {
-	SetLoad(true);
 	switch (currentView) {
 		case VIEWS.HOME:
 			$(views[0]).hide();
@@ -57,19 +56,19 @@ function ChangeView(view : VIEWS) {
 
 	switch (view) {
 		case VIEWS.HOME:
-			$(views[0]).css("display", "flex");
-			header.css("display", "flex");
-			footer.css("display", "flex");
+			$(views[0]).css("display", "flex").show();
+			header.css("display", "flex").show();;
+			footer.css("display", "flex").show();
 			title.text("SWS | Student Work Space");
 			break;
 		case VIEWS.STUDENT_CLIENT:
-			$(views[1]).show();
+			$(views[1]).css("display", "flex").show();
 			header.hide();
 			footer.hide();
 			title.text("SWS | Student client");
 			break;
 		case VIEWS.TEACHER_CLIENT:
-			$(views[2]).show();
+			$(views[2]).css("display", "flex").show();
 			header.hide();
 			footer.hide();
 			title.text("SWS | Teacher client");

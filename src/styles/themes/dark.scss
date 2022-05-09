@@ -10,11 +10,14 @@ $border-color-light: #565656;
 $contrast-color-type1: #2b2b2b;
 $contrast-color-type2: #ad8548;
 $contrast-color-type3: #000000;
+$contrast-color-type4: #1f1f1f;
+$contrast-color-type5: #646464;
 
 $shadow-color: #222222;
 
 $color-disabled: #ab4848;
 $color-enabled: #48ab5e;
+$color-wait: #ab9c48;
 
 *{color:$text-light}
 
@@ -43,6 +46,98 @@ div#app-container
 	border-color: $border-color-light;
 }
 
+div#teacher_client.content
+{
+	border-color: $border-color-light;
+
+	div.main-panel
+	{
+		div.general-panel
+		{
+			background-color: $background-light;
+			border-color: $border-color-dark;
+		}
+
+		div.sub-panel
+		{
+			div.query-list
+			{
+				background-color: $contrast-color-type1;
+				border-color: $border-color-dark;
+
+				div.title
+				{
+					background-color: $contrast-color-type4;
+				}
+
+				div
+				{
+					border-color: $border-color-dark;
+				}
+			}
+		}
+	}
+
+	div.control-panel
+	{
+		border-color: $border-color-dark;
+
+		div.sub-panel
+		{
+			.btn
+			{
+				background-color: $contrast-color-type5;
+			}
+		}
+	}
+}
+
+div#student_client.content
+{
+	border-color: $border-color-light;
+
+	div.main-panel
+	{
+		div.general-panel
+		{
+			background-color: $background-light;
+			border-color: $border-color-dark;
+		}
+
+		div.sub-panel
+		{
+			div.query-list
+			{
+				background-color: $contrast-color-type1;
+				border-color: $border-color-dark;
+
+				div.title
+				{
+					background-color: $contrast-color-type4;
+				}
+
+				div
+				{
+					border-color: $border-color-dark;
+				}
+			}
+		}
+	}
+
+	div.control-panel
+	{
+		border-color: $border-color-dark;
+
+		div.sub-panel
+		{
+			.btn
+			{
+				background-color: $contrast-color-type5;
+			}
+		}
+	}
+}
+
 .btn
 {
 	background-color: $contrast-color-type1;
@@ -57,4 +152,26 @@ div#app-container
 .disabled-btn
 {
 	background-color: $color-disabled;
+	color:$text-dark;
+
+	a
+	{
+		button
+		{
+			color:$text-dark;
+		}
+	}
+}
+
+.wait-btn
+{
+	background-color: $color-wait;
+
+	a
+	{
+		button
+		{
+			color:$text-dark;
+		}
+	}
 }

@@ -54,14 +54,20 @@ div#home.content
 				font-size: 1.8em;
 				font-weight: 400;
 			}
+		}
 
-			button
+		div.btn
+		{
+			height: auto;
+			width: 70%;
+
+			a
 			{
-				height: auto;
-				width: 70%;
-
-				font-size: 1.8em;
-				font-weight: 400;
+				button
+				{
+					font-size: 1.8em;
+					font-weight: 400;
+				}
 			}
 		}
 	}

@@ -1,19 +1,25 @@
 div#teacher_client.content
-	div
-		div.viewport
+	div.main-panel
+		div.general-panel
 		div.sub-panel
-			div#query-list
-				div
+			div.query-list
+				div.title Query
 				div
 	div.control-panel
-		div
-			div
-				button End Call
+		div.general-panel
+			div.btn.disabled-btn.end-call-btn
+				a
 					img(src="images/icons/phone.png")
-			div
-				button
-			div
-				button
-		div
-			div
-				button
+					button End Call
+			div.btn.wait-btn.mic-btn
+				a
+					img(src="images/icons/mic.png")
+					button
+			div.btn.wait-btn.video-btn
+				a
+					img(src="images/icons/video.png")
+					button
+		div.sub-panel
+			div.btn
+				a
+					button Tasks

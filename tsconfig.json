@@ -4,11 +4,12 @@
 	  "noImplicitAny": true,
 	  "removeComments": true,
 	  "preserveConstEnums": true,
+	  "allowUnreachableCode": true,
 	  "forceConsistentCasingInFileNames": true,
 	  "strict": true,
 	  "sourceMap": true,
-		  "rootDir": "src/scripts/",
-		  "outDir": "tmp/scripts"
+	  "rootDir": "src/scripts/",
+	  "outDir": "tmp/scripts",
 	},
 	"include": ["src/scripts/**/*.ts"]
 }
