@@ -42,17 +42,7 @@ $(function() {
 });
 
 function ChangeView(view : VIEWS) {
-	switch (currentView) {
-		case VIEWS.HOME:
-			$(views[0]).hide();
-			break;
-		case VIEWS.STUDENT_CLIENT:
-			$(views[1]).hide();
-			break;
-		case VIEWS.TEACHER_CLIENT:
-			$(views[2]).hide();
-			break;
-	}
+	ApplyViewTheme(view);
 
 	switch (view) {
 		case VIEWS.HOME:
@@ -74,8 +64,6 @@ function ChangeView(view : VIEWS) {
 			title.text("SWS | Teacher client");
 			break;
 	}
-
-	ApplyViewTheme(view);
 	currentView = view;
 	SetLoad(false);
 }
@@ -90,6 +78,17 @@ function ChangeTheme(theme : THEMES) {
 
 function SetLoad(active : boolean){
 	if (active) {
+		switch (currentView) {
+			case VIEWS.HOME:
+				$(views[0]).hide();
+				break;
+			case VIEWS.STUDENT_CLIENT:
+				$(views[1]).hide();
+				break;
+			case VIEWS.TEACHER_CLIENT:
+				$(views[2]).hide();
+				break;
+		}
 		loadBar.show();
 	}
 	else {

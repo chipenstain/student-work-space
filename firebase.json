@@ -8,7 +8,9 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ]
+    ],
+	"cleanUrls": true,
+    "trailingSlash": false
   },
   "storage": {
     "rules": "storage.rules"
@@ -21,7 +23,8 @@
       "port": 5000
     },
     "ui": {
-      "enabled": true
+      "enabled": true,
+	  "port": 4000
     }
   }
 }

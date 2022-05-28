@@ -21,7 +21,7 @@ node_modules
 package-lock.json
 
 #Builds
-public
+public/**/*
 
 #TMPs
 tmp

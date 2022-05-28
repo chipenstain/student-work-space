@@ -9,7 +9,7 @@
 	  "strict": true,
 	  "sourceMap": true,
 	  "rootDir": "src/scripts/",
-	  "outDir": "tmp/scripts",
+	  "outDir": "tmp/scripts"
 	},
 	"include": ["src/scripts/**/*.ts"]
 }
