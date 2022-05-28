@@ -9,21 +9,21 @@ enum THEMES {
 	LIGHT = "light"
 };
 
-let title : JQuery<HTMLTitleElement>;
-let copyright : JQuery<HTMLSpanElement>;
-let themeHolder : JQuery<HTMLLinkElement>;
-let viewThemeHolder : JQuery<HTMLLinkElement>;
+let title: JQuery<HTMLTitleElement>;
+let copyright: JQuery<HTMLSpanElement>;
+let themeHolder: JQuery<HTMLLinkElement>;
+let viewThemeHolder: JQuery<HTMLLinkElement>;
 
-let header : JQuery<HTMLElement>;
-let footer : JQuery<HTMLElement>;
+let header: JQuery<HTMLElement>;
+let footer: JQuery<HTMLElement>;
 
-let loadBar : JQuery<HTMLDivElement>
-let appContainer : JQuery<HTMLDivElement>;
+let loadBar: JQuery<HTMLDivElement>
+let appContainer: JQuery<HTMLDivElement>;
 
-let views : any;
-let currentView : VIEWS;
+let views: any;
+let currentView: VIEWS;
 
-$(function() {
+$(function () {
 	title = $("title");
 	copyright = $("span#copyright");
 	themeHolder = $("link#theme-holder");
@@ -41,7 +41,7 @@ $(function() {
 	ChangeView(VIEWS.HOME);
 });
 
-function ChangeView(view : VIEWS) {
+function ChangeView(view: VIEWS) {
 	ApplyViewTheme(view);
 
 	switch (view) {
@@ -68,15 +68,15 @@ function ChangeView(view : VIEWS) {
 	SetLoad(false);
 }
 
-function ApplyViewTheme(view : VIEWS) {
+function ApplyViewTheme(view: VIEWS) {
 	viewThemeHolder.attr("href", "styles/" + view + ".min.css");
 }
 
-function ChangeTheme(theme : THEMES) {
+function ChangeTheme(theme: THEMES) {
 	themeHolder.attr("href", "styles/themes/" + theme + ".min.css");
 }
 
-function SetLoad(active : boolean){
+function SetLoad(active: boolean) {
 	if (active) {
 		switch (currentView) {
 			case VIEWS.HOME:
@@ -96,8 +96,7 @@ function SetLoad(active : boolean){
 	}
 }
 
-function SetCopyright()
-{
+function SetCopyright() {
 	let currentYear = new Date().getFullYear();
 	let copyTxt = "&#169;chipenstain 2022" + ((currentYear = 2022) ? "" : (" - " + currentYear.toString()));
 	copyright.html(copyTxt);

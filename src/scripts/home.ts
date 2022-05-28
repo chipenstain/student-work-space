@@ -1,13 +1,13 @@
-let teacherName : JQuery<HTMLInputElement>;
-let studentName : JQuery<HTMLInputElement>;
-let roomId : JQuery<HTMLInputElement>;
+let teacherName: JQuery<HTMLInputElement>;
+let studentName: JQuery<HTMLInputElement>;
+let roomId: JQuery<HTMLInputElement>;
 
-$(function(){
+$(function () {
 	teacherName = $("#teacher-name");
 	studentName = $("#student-name");
 	roomId = $("#roomid");
 
-	$("div#teacher-mode").on("click", async ()=>{
+	$("div#teacher-mode").on("click", async () => {
 		SetLoad(true);
 
 		// @ts-ignore
@@ -19,14 +19,14 @@ $(function(){
 		const studentCandidates = roomDoc.collection('studentCandidates');
 
 		remoteStackStreams = new MediaStream();
-		videoStream = await navigator.mediaDevices.getUserMedia({ video: true});
+		videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
 		PeerConnection.addTrack(videoStream.getVideoTracks()[0], videoStream);
 		video2Stream = await navigator.mediaDevices.getDisplayMedia({
 			video: true,
-  			audio: true
+			audio: true
 		});
 		PeerConnection.addTrack(video2Stream.getVideoTracks()[0], videoStream);
-		audioStream = await navigator.mediaDevices.getUserMedia({ audio: true});
+		audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
 		PeerConnection.addTrack(audioStream.getAudioTracks()[0], audioStream);
 
 		PeerConnection.onicecandidate = event => {
@@ -34,8 +34,7 @@ $(function(){
 				console.log('Got final candidate!');
 				return;
 			}
-			else
-			{
+			else {
 				console.log('Got candidate: ', event.candidate);
 				teacherCandidates.add(event.candidate.toJSON());
 			}
@@ -95,14 +94,14 @@ $(function(){
 		const studentCandidates = roomDoc.collection('studentCandidates');
 
 		remoteStackStreams = new MediaStream();
-		videoStream = await navigator.mediaDevices.getUserMedia({ video: true});
+		videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
 		PeerConnection.addTrack(videoStream.getVideoTracks()[0], videoStream);
 		video2Stream = await navigator.mediaDevices.getDisplayMedia({
 			video: true,
-  			audio: true
+			audio: true
 		});
 		PeerConnection.addTrack(video2Stream.getVideoTracks()[0], videoStream);
-		audioStream = await navigator.mediaDevices.getUserMedia({ audio: true});
+		audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
 		PeerConnection.addTrack(audioStream.getAudioTracks()[0], audioStream);
 
 		PeerConnection.onicecandidate = event => {
@@ -110,8 +109,7 @@ $(function(){
 				console.log('Got final candidate!');
 				return;
 			}
-			else
-			{
+			else {
 				console.log('Got candidate: ', event.candidate);
 				studentCandidates.add(event.candidate.toJSON());
 			}

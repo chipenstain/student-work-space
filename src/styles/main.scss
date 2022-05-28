@@ -6,13 +6,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 /*====GENERAL STYLES====*/
-* {margin: 0; padding: 0; font-family: 'Montserrat', sans-serif;}
-html, body {height: 100%; width: 100%;}
-a {text-decoration: none;}
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'Montserrat', sans-serif;
+}
+
+html,
+body {
+	height: 100%;
+	width: 100%;
+}
+
+a {
+	text-decoration: none;
+}
 
 /*====MAIN STYLES====*/
-header, main, footer
-{
+header,
+main,
+footer {
 	position: fixed;
 	display: flex;
 	flex-direction: row;
@@ -20,64 +33,55 @@ header, main, footer
 	align-items: center;
 }
 
-header
-{
+header {
 	z-index: 9999;
 	top: 0;
 	height: 75px;
 	width: 100%;
 }
 
-footer
-{
+footer {
 	z-index: 9999;
 	bottom: 0;
 	height: 75px;
 	width: 100%;
 }
 
-main
-{
+main {
 	height: 100%;
 	width: 100%;
 }
 
-div#app-container
-{
+div#app-container {
 	height: calc(100% - 10px);
-	width : calc(100% - 10px);
+	width: calc(100% - 10px);
 
 	margin: 5px;
 
-	div#loading-bar
-	{
+	div#loading-bar {
 		height: 50px;
 		width: 50px;
 
-		img
-		{
+		img {
 			height: 100%;
 			width: 100%;
-			animation: loading-rotate 2s ease-in-out infinite;;
+			animation: loading-rotate 2s ease-in-out infinite;
+			;
 		}
 
-		@keyframes loading-rotate
-		{
-			from
-			{
+		@keyframes loading-rotate {
+			from {
 				transform: rotate(0deg);
 			}
 
-			to
-			{
+			to {
 				transform: rotate(359deg);
 			}
 		}
 	}
 }
 
-.content
-{
+.content {
 	display: none;
 
 	height: 100%;

@@ -1,11 +1,9 @@
-div#home.content
-{
+div#home.content {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
 
-	.btn
-	{
+	.btn {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -16,8 +14,7 @@ div#home.content
 
 		padding: 20px;
 
-		div
-		{
+		div {
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-start;
@@ -25,8 +22,7 @@ div#home.content
 
 			width: 100%;
 
-			span
-			{
+			span {
 				width: 80%;
 				margin-left: 40px;
 				margin-bottom: 10px;
@@ -36,8 +32,7 @@ div#home.content
 				font-weight: 300;
 			}
 
-			span.title
-			{
+			span.title {
 				margin-left: 0;
 				margin-bottom: 25px;
 
@@ -46,8 +41,7 @@ div#home.content
 				font-weight: 900;
 			}
 
-			input
-			{
+			input {
 				width: 80%;
 				margin-bottom: 25px;
 
@@ -56,15 +50,12 @@ div#home.content
 			}
 		}
 
-		div.btn
-		{
+		div.btn {
 			height: auto;
 			width: 70%;
 
-			a
-			{
-				button
-				{
+			a {
+				button {
 					font-size: 1.8em;
 					font-weight: 400;
 				}

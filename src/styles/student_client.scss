@@ -1,5 +1,4 @@
-div#student_client.content
-{
+div#student_client.content {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
@@ -14,14 +13,12 @@ div#student_client.content
 	border-style: solid;
 	border-radius: 7px;
 
-	div.main-panel
-	{
+	div.main-panel {
 		display: flex;
 		width: 100%;
 		height: calc(100% - 110px);
 
-		div.general-panel
-		{
+		div.general-panel {
 			width: calc(100% - 500px);
 			height: 100%;
 
@@ -30,9 +27,9 @@ div#student_client.content
 			border-top-left-radius: 7px;
 		}
 
-		div.sub-panel
-		{
-			padding: 20px;;
+		div.sub-panel {
+			padding: 20px;
+			;
 
 			width: 460px;
 			height: calc(100% - 40px);
@@ -42,8 +39,7 @@ div#student_client.content
 			justify-content: space-between;
 			align-items: center;
 
-			div.query-list
-			{
+			div.query-list {
 				margin-bottom: 10px;
 
 				width: 100%;
@@ -53,8 +49,7 @@ div#student_client.content
 				border-style: solid;
 				border-radius: 7px;
 
-				div.title
-				{
+				div.title {
 					display: flex;
 					flex-direction: column;
 					justify-content: center;
@@ -66,8 +61,7 @@ div#student_client.content
 					font-weight: 700;
 				}
 
-				div
-				{
+				div {
 					display: flex;
 					flex-direction: column;
 					justify-content: flex-start;
@@ -81,8 +75,7 @@ div#student_client.content
 		}
 	}
 
-	div.control-panel
-	{
+	div.control-panel {
 		display: flex;
 		width: 100%;
 		height: 110px;
@@ -90,29 +83,25 @@ div#student_client.content
 		border-width: 2px;
 		border-style: solid;
 
-		div
-		{
+		div {
 			display: flex;
 			flex-direction: row;
 			justify-content: flex-start;
 			align-items: center;
 		}
 
-		div.general-panel
-		{
+		div.general-panel {
 			width: calc(100% - 500px);
 			height: 100%;
 		}
 
-		div.sub-panel
-		{
+		div.sub-panel {
 			width: 500px;
 			height: 100%;
 			justify-content: space-around;
 			align-items: center;
 
-			.btn
-			{
+			.btn {
 				width: 90%;
 				border-radius: 7px;
 			}
@@ -120,8 +109,7 @@ div#student_client.content
 	}
 }
 
-.btn
-{
+.btn {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -133,10 +121,8 @@ div#student_client.content
 
 	padding: 5px 30px;
 
-	a
-	{
-		img
-		{
+	a {
+		img {
 			height: 100%;
 			margin-right: 7px;
 		}

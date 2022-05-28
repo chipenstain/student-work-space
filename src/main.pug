@@ -2,12 +2,12 @@ doctype html
 html(lang="en")
 	head
 		meta(charset="UTF-8")
-		meta(http-equiv="X-UA-Compatible", content="IE=edge")
-		meta(name="viewport", content="width=device-width, initial-scale=1.0")
-		link(rel="stylesheet", href="styles/main.min.css")
-		link#theme-holder(rel="stylesheet", href="styles/themes/dark.min.css")
-		link#view-theme-holder(rel="stylesheet", href="styles/home.min.css")
-		link(rel="shortcut icon", href="images/icons/favicon.png", type="image/x-icon")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+		meta(name="viewport" content="width=device-width, initial-scale=1.0")
+		link(rel="stylesheet" href="styles/main.min.css")
+		link#theme-holder(rel="stylesheet" href="styles/themes/dark.min.css")
+		link#view-theme-holder(rel="stylesheet" href="styles/home.min.css")
+		link(rel="shortcut icon" href="images/icons/favicon.png" type="image/x-icon")
 		script(src="https://code.jquery.com/jquery-3.6.0.min.js")
 		script(defer='' src='/__/firebase/5.9.3/firebase-app.js')
 		script(defer='' src='/__/firebase/5.9.3/firebase-firestore.js')
@@ -23,7 +23,7 @@ html(lang="en")
 		main
 			div#app-container
 				div#loading-bar
-					img(src="images/icons/load.png", alt="load")
+					img(src="images/icons/load.png" alt="load")
 				include views/home.pug
 				include views/student_client.pug
 				include views/teacher_client.pug

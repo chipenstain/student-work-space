@@ -19,159 +19,129 @@ $color-disabled: #ab4848;
 $color-enabled: #48ab5e;
 $color-wait: #ab9c48;
 
-*{color:$text-light}
+* {
+	color: $text-light
+}
 
-header, footer
-{
+header,
+footer {
 	background-color: $background-light;
 }
 
-header
-{
+header {
 	box-shadow: 0px 2px 9px $shadow-color;
 }
 
-footer
-{
+footer {
 	box-shadow: 0px -2px 9px $shadow-color;
 }
 
-main
-{
+main {
 	background-color: $background-dark;
 }
 
-div#app-container
-{
+div#app-container {
 	border-color: $border-color-light;
 }
 
-div#teacher_client.content
-{
+div#teacher_client.content {
 	border-color: $border-color-light;
 
-	div.main-panel
-	{
-		div.general-panel
-		{
+	div.main-panel {
+		div.general-panel {
 			background-color: $background-light;
 			border-color: $border-color-dark;
 		}
 
-		div.sub-panel
-		{
-			div.query-list
-			{
+		div.sub-panel {
+			div.query-list {
 				background-color: $contrast-color-type1;
 				border-color: $border-color-dark;
 
-				div.title
-				{
+				div.title {
 					background-color: $contrast-color-type4;
 				}
 
-				div
-				{
+				div {
 					border-color: $border-color-dark;
 				}
 			}
 		}
 	}
 
-	div.control-panel
-	{
+	div.control-panel {
 		border-color: $border-color-dark;
 
-		div.sub-panel
-		{
-			.btn
-			{
+		div.sub-panel {
+			.btn {
 				background-color: $contrast-color-type5;
 			}
 		}
 	}
 }
 
-div#student_client.content
-{
+div#student_client.content {
 	border-color: $border-color-light;
 
-	div.main-panel
-	{
-		div.general-panel
-		{
+	div.main-panel {
+		div.general-panel {
 			background-color: $background-light;
 			border-color: $border-color-dark;
 		}
 
-		div.sub-panel
-		{
-			div.query-list
-			{
+		div.sub-panel {
+			div.query-list {
 				background-color: $contrast-color-type1;
 				border-color: $border-color-dark;
 
-				div.title
-				{
+				div.title {
 					background-color: $contrast-color-type4;
 				}
 
-				div
-				{
+				div {
 					border-color: $border-color-dark;
 				}
 			}
 		}
 	}
 
-	div.control-panel
-	{
+	div.control-panel {
 		border-color: $border-color-dark;
 
-		div.sub-panel
-		{
-			.btn
-			{
+		div.sub-panel {
+			.btn {
 				background-color: $contrast-color-type5;
 			}
 		}
 	}
 }
 
-.btn
-{
+.btn {
 	background-color: $contrast-color-type1;
 	border-color: $border-color-dark;
 }
 
-.enabled-btn
-{
+.enabled-btn {
 	background-color: $color-enabled;
 }
 
-.disabled-btn
-{
+.disabled-btn {
 	background-color: $color-disabled;
-	color:$text-dark;
+	color: $text-dark;
 
-	a
-	{
-		button
-		{
-			color:$text-dark;
+	a {
+		button {
+			color: $text-dark;
 		}
 	}
 }
 
-.wait-btn
-{
+.wait-btn {
 	background-color: $color-wait;
 
-	a
-	{
-		button
-		{
-			color:$text-dark;
+	a {
+		button {
+			color: $text-dark;
 		}
 	}
 }

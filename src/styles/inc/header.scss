@@ -1,22 +1,17 @@
-header
-{
-	div
-	{
+header {
+	div {
 		height: 60%;
 		width: 18%;
 	}
 
-	div#logo
-	{
+	div#logo {
 		display: flex;
 		justify-content: center;
 
 		width: 40%;
 
-		a
-		{
-			img
-			{
+		a {
+			img {
 				height: 100%;
 			}
 		}

@@ -1,19 +1,15 @@
-footer
-{
-	div
-	{
+footer {
+	div {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 
-		span
-		{
+		span {
 			font-size: 0.8em;
 			font-weight: 300;
 		}
 
-		a
-		{
+		a {
 			cursor: hand;
 			font-size: 0.6em;
 			font-weight: 200;
