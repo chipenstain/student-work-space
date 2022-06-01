@@ -44,49 +44,25 @@ div#app-container {
 	border-color: $border-color-light;
 }
 
-div#teacher_client.content {
+div.content {
 	border-color: $border-color-light;
 
 	div.main-panel {
 		div.general-panel {
 			background-color: $background-light;
 			border-color: $border-color-dark;
-		}
 
-		div.sub-panel {
-			div.query-list {
-				background-color: $contrast-color-type1;
+			div.viewport
+			{
+				background-color: $background-dark;
 				border-color: $border-color-dark;
 
-				div.title {
-					background-color: $contrast-color-type4;
-				}
-
-				div {
-					border-color: $border-color-dark;
+				div.screen {
+					div.camera {
+						border-color: $border-color-light;
+					}
 				}
 			}
-		}
-	}
-
-	div.control-panel {
-		border-color: $border-color-dark;
-
-		div.sub-panel {
-			.btn {
-				background-color: $contrast-color-type5;
-			}
-		}
-	}
-}
-
-div#student_client.content {
-	border-color: $border-color-light;
-
-	div.main-panel {
-		div.general-panel {
-			background-color: $background-light;
-			border-color: $border-color-dark;
 		}
 
 		div.sub-panel {

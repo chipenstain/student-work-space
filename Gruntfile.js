@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: "src/views/",
-					src: ["**/*.pug", "../main.pug", "!inc/**/*.pug"],
+					src: ["**/*.pug", "../index.pug", "!inc/**/*.pug"],
 					dest: "tmp/views/",
 					ext: ".html"
 				}]
@@ -59,9 +59,9 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: "tmp/views",
-					src: ["**/*.html", "../main.html"],
+					src: ["**/*.html", "../index.html"],
 					dest: "public/views/",
-					ext: ".min.html"
+					ext: ".html"
 				}]
 			}
 		},
@@ -77,7 +77,7 @@ module.exports = function(grunt) {
 					cwd: "tmp/styles",
 					src: ["**/*.css"],
 					dest: "public/styles/",
-					ext: ".min.css"
+					ext: ".css"
 				}]
 			}
 		},
@@ -106,14 +106,15 @@ module.exports = function(grunt) {
 				options: {
 					mangle: false,
 					compress: true,
-					sourceMap: false
+					sourceMap: false,
+					beautify: true
 				},
 				files: [{
 					expand: true,
 					cwd: "tmp/scripts",
 					src: ["**/*.js"],
 					dest: "public/scripts/",
-					ext: ".min.js"
+					ext: ".js"
 				}]
 			}
 		},
@@ -177,9 +178,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-ts");
 	grunt.loadNpmTasks("grunt-newer");
 
-	grunt.registerTask("build", ["ts", "dart-sass", "pug", "htmlmin", "cssmin", "imagemin", "uglify"]);
+	grunt.registerTask("build", ["ts", "dart-sass", "pug", "uglify", "cssmin", "htmlmin", "imagemin"]);
 	grunt.registerTask("build_clean", ["clean", "build"]);
 	grunt.registerTask("build_watch", ["build", "watch"]);
 
-	grunt.registerTask("default", ["build_watch"]);
+	grunt.registerTask("default", ["build_clean"]);
 };

@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "web app for automatization education process at colleges",
   "main": "public/main.min.html",
-  "scripts": {},
+  "scripts": {
+	  "serve": "firebase serve"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chipenstain/student-work-space.git"

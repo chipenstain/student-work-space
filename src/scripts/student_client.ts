@@ -1,8 +1,8 @@
-let studentViewport: JQuery<HTMLDivElement>
+let studentViewport : JQuery<HTMLDivElement>
 
-let endCallStudentBtn: JQuery<HTMLDivElement>;
-let videoStudentBtn: JQuery<HTMLDivElement>;
-let audioStudentBtn: JQuery<HTMLDivElement>;
+let endCallStudentBtn : JQuery<HTMLDivElement>;
+let videoStudentBtn : JQuery<HTMLDivElement>;
+let audioStudentBtn : JQuery<HTMLDivElement>;
 
 $(function () {
 	studentViewport = $("div#student_client.content div.main-panel div.general-panel");
@@ -14,12 +14,9 @@ $(function () {
 	endCallStudentBtn.on("click", async function () {
 		SetLoad(true);
 
-		PeerConnection.close();
-
 		if (roomID != "") {
 			// @ts-ignore
-			const firestore = firebase.firestore();
-			const roomDoc = firestore.collection('rooms').doc(roomId);
+			const roomDoc = firestore.collection('rooms').doc(roomIdInput);
 			const calleeCandidates = await roomDoc.collection('calleeCandidates').get();
 			calleeCandidates.forEach(async (candidate: { ref: { delete: () => any; }; }) => {
 				await candidate.ref.delete();
@@ -33,24 +30,26 @@ $(function () {
 
 		ChangeView(VIEWS.HOME);
 	});
-
-	remoteStackStreams = new MediaStream();
-	videoStudentBtn.on("click", async async => {
-		videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
-		PeerConnection.addTrack(videoStream.getVideoTracks()[0], videoStream);
-	});
-
-	audioStudentBtn.on("click", async async => {
-		audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-		PeerConnection.addTrack(audioStream.getAudioTracks()[0], audioStream);
-	});
 });
 
 function CreateTeacherView() {
-	let camera: JQuery<HTMLVideoElement> = $("<video width=360px height=240px>");
-	let camera2: JQuery<HTMLVideoElement> = $("<video width=360px height=240px>");
-	let mic: JQuery<HTMLVideoElement> = $("<audio>");
-	studentViewport.append(camera);
-	studentViewport.append(camera2);
-	studentViewport.append(mic);
+	let viewport : JQuery<HTMLDivElement> = $("<div class='viewport'>");
+	studentViewport.append(viewport);
+
+	let screenContainer : JQuery<HTMLDivElement> = $("<div class='screen'>");
+	viewport.append(screenContainer);
+
+	let screen : JQuery<HTMLVideoElement> = $("<video autoplay playsinline>");
+	screenContainer.append(screen);
+
+	let cameraContainer : JQuery<HTMLDivElement> = $("<div class='camera'>");
+	screenContainer.append(cameraContainer);
+
+	let camera : JQuery<HTMLVideoElement> = $("<video autoplay playsinline>");
+	cameraContainer.append(camera);
+
+	let mic : JQuery<HTMLVideoElement> = $("<audio autoplay>");
+	viewport.append(mic);
+
+	return {mic: mic[0], camera: camera[0], screen: screen[0] };
 }
