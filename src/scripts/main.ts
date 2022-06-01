@@ -9,19 +9,19 @@ enum THEMES {
 	LIGHT = "light"
 };
 
-let windowTitle : JQuery<HTMLTitleElement>;
-let copyrightLabel : JQuery<HTMLSpanElement>;
-let themeHolder : JQuery<HTMLLinkElement>;
-let viewThemeHolder : JQuery<HTMLLinkElement>;
+let windowTitle: JQuery<HTMLTitleElement>;
+let copyrightLabel: JQuery<HTMLSpanElement>;
+let themeHolder: JQuery<HTMLLinkElement>;
+let viewThemeHolder: JQuery<HTMLLinkElement>;
 
-let header : JQuery<HTMLElement>;
-let footer : JQuery<HTMLElement>;
+let header: JQuery<HTMLElement>;
+let footer: JQuery<HTMLElement>;
 
-let loadBar : JQuery<HTMLDivElement>
-let appContainer : JQuery<HTMLDivElement>;
+let loadBar: JQuery<HTMLDivElement>
+let appContainer: JQuery<HTMLDivElement>;
 
-let views : JQuery<HTMLDivElement>;
-let currentView : VIEWS;
+let views: JQuery<HTMLDivElement>;
+let currentView: VIEWS;
 
 $(function () {
 	windowTitle = $("title");
@@ -41,7 +41,7 @@ $(function () {
 	ChangeView(VIEWS.HOME);
 });
 
-function ChangeView(view : VIEWS) {
+function ChangeView(view: VIEWS) {
 	ApplyView(view);
 
 	switch (view) {
@@ -68,15 +68,15 @@ function ChangeView(view : VIEWS) {
 	SetLoad(false);
 }
 
-function ApplyView(view : VIEWS) {
+function ApplyView(view: VIEWS) {
 	viewThemeHolder.attr("href", "styles/" + view + ".css");
 }
 
-function ChangeTheme(theme : THEMES) {
+function ChangeTheme(theme: THEMES) {
 	themeHolder.attr("href", "styles/themes/" + theme + ".css");
 }
 
-function SetLoad(active : boolean) {
+function SetLoad(active: boolean) {
 	if (active) {
 		switch (currentView) {
 			case VIEWS.HOME:

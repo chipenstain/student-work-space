@@ -1,8 +1,8 @@
-let studentViewport : JQuery<HTMLDivElement>
+let studentViewport: JQuery<HTMLDivElement>
 
-let endCallStudentBtn : JQuery<HTMLDivElement>;
-let videoStudentBtn : JQuery<HTMLDivElement>;
-let audioStudentBtn : JQuery<HTMLDivElement>;
+let endCallStudentBtn: JQuery<HTMLDivElement>;
+let videoStudentBtn: JQuery<HTMLDivElement>;
+let audioStudentBtn: JQuery<HTMLDivElement>;
 
 $(function () {
 	studentViewport = $("div#student_client.content div.main-panel div.general-panel");
@@ -33,23 +33,23 @@ $(function () {
 });
 
 function CreateTeacherView() {
-	let viewport : JQuery<HTMLDivElement> = $("<div class='viewport'>");
+	let viewport: JQuery<HTMLDivElement> = $("<div class='viewport'>");
 	studentViewport.append(viewport);
 
-	let screenContainer : JQuery<HTMLDivElement> = $("<div class='screen'>");
+	let screenContainer: JQuery<HTMLDivElement> = $("<div class='screen'>");
 	viewport.append(screenContainer);
 
-	let screen : JQuery<HTMLVideoElement> = $("<video autoplay playsinline>");
+	let screen: JQuery<HTMLVideoElement> = $("<video autoplay playsinline>");
 	screenContainer.append(screen);
 
-	let cameraContainer : JQuery<HTMLDivElement> = $("<div class='camera'>");
+	let cameraContainer: JQuery<HTMLDivElement> = $("<div class='camera'>");
 	screenContainer.append(cameraContainer);
 
-	let camera : JQuery<HTMLVideoElement> = $("<video autoplay playsinline>");
+	let camera: JQuery<HTMLVideoElement> = $("<video autoplay playsinline>");
 	cameraContainer.append(camera);
 
-	let mic : JQuery<HTMLVideoElement> = $("<audio autoplay>");
+	let mic: JQuery<HTMLVideoElement> = $("<audio autoplay>");
 	viewport.append(mic);
 
-	return {mic: mic[0], camera: camera[0], screen: screen[0] };
+	return { mic: mic[0], camera: camera[0], screen: screen[0] };
 }

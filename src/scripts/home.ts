@@ -1,6 +1,6 @@
-let teacherNameInput : JQuery<HTMLInputElement>;
-let studentNameInput : JQuery<HTMLInputElement>;
-let roomIdInput : JQuery<HTMLInputElement>;
+let teacherNameInput: JQuery<HTMLInputElement>;
+let studentNameInput: JQuery<HTMLInputElement>;
+let roomIdInput: JQuery<HTMLInputElement>;
 
 $(function () {
 	teacherNameInput = $("#teacher-name");

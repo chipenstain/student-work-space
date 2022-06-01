@@ -80,7 +80,7 @@ class Peer {
 		this.GetUserMedia(type).then(async () => {
 			this.connection = new RTCPeerConnection(servers);
 
-			this.connection.onicecandidate = (event : RTCPeerConnectionIceEvent) => {
+			this.connection.onicecandidate = (event: RTCPeerConnectionIceEvent) => {
 				if (type === ClientType.STUDENT) {
 					if (!event.candidate) {
 						console.log('Got finale candidate');
@@ -114,7 +114,7 @@ class Peer {
 			});
 
 			// @ts-ignore
-			this.connection.ontrack = (event : RTCTrackEvent) => {
+			this.connection.ontrack = (event: RTCTrackEvent) => {
 				if (this.streamCount === 0) {
 					event.streams[0].getTracks().forEach((track: MediaStreamTrack) => {
 						this.remoteMicStream.addTrack(track);

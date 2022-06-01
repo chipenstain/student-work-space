@@ -17,10 +17,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Build
-      - run: |
+        run: |
           npm install
           grunt
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_STUDENTWORKSPACE_21FB2 }}"

@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 	grunt.initConfig({
 		//======Pug=======
 		pug: {
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
 
 		//========TypeScript=======
 		ts: {
-			default : {
+			default: {
 				tsconfig: "./tsconfig.json"
 			}
 		},
@@ -89,7 +89,7 @@ module.exports = function(grunt) {
 					optimizationLevel: 5,
 					progressive: true,
 					interlaced: true,
-					svgoPlugins: [{removeViewBox: false}]
+					svgoPlugins: [{ removeViewBox: false }]
 				},
 				files: [{
 					expand: true,
@@ -125,7 +125,7 @@ module.exports = function(grunt) {
 				files: ["src/scripts/**/*.ts"],
 				tasks: ["newer:ts"]
 			},
-			'scripts-min':{
+			'scripts-min': {
 				files: ["tmp/scripts/**/*.js"],
 				tasks: ["newer:uglify"]
 			},
@@ -133,7 +133,7 @@ module.exports = function(grunt) {
 				files: ["src/styles/**/*.scss"],
 				tasks: ["newer:dart-sass"]
 			},
-			'styles-min':{
+			'styles-min': {
 				files: ["tmp/styles/**/*.css"],
 				tasks: ["newer:cssmin"]
 			},
@@ -141,7 +141,7 @@ module.exports = function(grunt) {
 				files: ["src/views/**/*.pug", "src/main.pug"],
 				tasks: ["newer:pug"]
 			},
-			'templates-min':{
+			'templates-min': {
 				files: ["tmp/views/**/*.html", "tmp/main.html"],
 				tasks: ["newer:htmlmin"]
 			},
