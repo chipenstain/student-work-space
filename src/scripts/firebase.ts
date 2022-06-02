@@ -10,16 +10,18 @@ const firebaseConfig = {
 const servers = {
 	iceServers: [
 		{
-			urls: ['stun:stun1.l.google.com:19302', 'stun:stun2.l.google.com:19302'],
+			urls: ["stun:stun1.l.google.com:19302", "stun:stun2.l.google.com:19302"],
 		},
 	],
 	iceCandidatePoolSize: 10,
 };
 
 // @ts-ignore
-const firestore = firebase.firestore();
+let firestore: any;
 
 let roomID: string | number | string[] | undefined;
+let roomDoc: any;
+let clientDoc: any;
 
 let peers: Array<Peer> = new Array();
 
@@ -35,6 +37,7 @@ enum ClientType {
 };
 
 class Peer {
+	type: ClientType;
 	id: number;
 
 	viewport: Viewport | null;
@@ -50,11 +53,11 @@ class Peer {
 	remoteScreenStream: MediaStream;
 
 	roomDoc: any;
-	teacherCandidates: any;
-	studentCandidates: any;
+	clientDoc: any;
 
 
 	constructor(id: number, type: ClientType) {
+		this.type = type;
 		this.id = id;
 
 		this.viewport = null;
@@ -67,39 +70,17 @@ class Peer {
 		this.remoteCameraStream = new MediaStream();
 		this.remoteScreenStream = new MediaStream();
 
-		if (type === ClientType.STUDENT) {
-			this.roomDoc = firestore.collection('rooms').doc(roomID);
-		}
-		else if (type === ClientType.TEACHER) {
-			this.roomDoc = firestore.collection('rooms').doc();
-			roomID = this.roomDoc.id;
-		}
-		this.teacherCandidates = this.roomDoc.collection('teacherCandidates');
-		this.studentCandidates = this.roomDoc.collection('studentCandidates');
-
 		this.GetUserMedia(type).then(async () => {
 			this.connection = new RTCPeerConnection(servers);
 
 			this.connection.onicecandidate = (event: RTCPeerConnectionIceEvent) => {
-				if (type === ClientType.STUDENT) {
-					if (!event.candidate) {
-						console.log('Got finale candidate');
-						return;
-					}
-					else {
-						console.log('Got candidate: ', event.candidate);
-						this.studentCandidates.add(event.candidate.toJSON());
-					}
+				if (!event.candidate) {
+					console.log("Got finale candidate");
+					return;
 				}
-				else if (type === ClientType.TEACHER) {
-					if (!event.candidate) {
-						console.log('Got finale candidate');
-						return;
-					}
-					else {
-						console.log('Got candidate: ', event.candidate);
-						this.teacherCandidates.add(event.candidate.toJSON());
-					}
+				else {
+					console.log("Got candidate: ", event.candidate);
+					this.clientDoc.collection("candidates").add(event.candidate.toJSON());
 				}
 			};
 
@@ -138,56 +119,64 @@ class Peer {
 
 			if (type === ClientType.STUDENT) {
 				this.viewport = CreateTeacherView();
-				const roomData = (await this.roomDoc.get()).data();
-				await this.connection.setRemoteDescription(new RTCSessionDescription(roomData.offer)); // TODO: Fix structure of DB
+				const teacherData = (await (this.roomDoc.collection("teacher").get())).docs[0].data();
+				await this.SetRemoteDescription(teacherData.desc);
 				this.connection.createAnswer().then(async (desc) => {
 					await this.connection.setLocalDescription(desc);
-					const answer = {
-						sdp: desc.sdp,
-						type: desc.type
-					}
-					await this.roomDoc.update({ answer });
-					console.log('Got room');
+					await this.clientDoc.set({ name: studentNameInput.val() });
+					await this.clientDoc.update({ desc: { sdp: desc.sdp, type: desc.type } });
+					console.log("Got room");
 				});
 			}
 			else if (type === ClientType.TEACHER) {
 				this.connection.createOffer().then(async (desc) => {
 					await this.connection.setLocalDescription(desc);
-					const offer = {
-						sdp: desc.sdp,
-						type: desc.type
-					}
-					await this.roomDoc.set({ offer });
+					await this.clientDoc.set({ name: teacherNameInput.val() });
+					await this.clientDoc.update({ desc: { sdp: desc.sdp, type: desc.type } });
 					console.log(`New room created with SDP offer. Room ID: ${this.roomDoc.id}`);
 				});
 			}
 
 			if (type === ClientType.STUDENT) {
-				this.teacherCandidates.onSnapshot((snapshot: { docChanges: () => any[]; }) => {
+				let teacherID = (await (this.roomDoc.collection("teacher").get())).docs[0].id;
+
+				firestore.collection("rooms/" + roomID + "/teacher/" + teacherID + "/candidates").onSnapshot((snapshot: { docChanges: () => any[]; }) => {
 					snapshot.docChanges().forEach((change: { type: string; doc: { data: () => any; }; }) => {
-						if (change.type === 'added') {
+						if (change.type === "added") {
 							this.connection.addIceCandidate(new RTCIceCandidate(change.doc.data()));
 						}
 					});
 				});
 			}
 			else if (type === ClientType.TEACHER) {
-				this.roomDoc.onSnapshot(async (snapshot: { data: () => any; }) => {
-					if (!this.connection.currentRemoteDescription && snapshot.data()?.answer) {
-						this.viewport = CreateStudentView();
-						await this.connection.setRemoteDescription(new RTCSessionDescription(snapshot.data().answer)); // TODO: Fix structure of DB
-					}
-				});
-
-				this.studentCandidates.onSnapshot((snapshot: { docChanges: () => any[]; }) => {
-					snapshot.docChanges().forEach(async change => {
-						if (change.type === 'added') {
-							this.connection.addIceCandidate(new RTCIceCandidate(change.doc.data()));
+				/*this.roomDoc.collection("students").onSnapshot(async (snapshot: {[x: string]: any; data: () => any;}) => {
+					snapshot.docChanges().forEach(async (change: { type: string; doc: { data: () => { (): any; new(): any; desc: any; }; }; }) => {
+						if (change.type === "added") {
+							if (!this.connection.currentRemoteDescription && change.doc.data()?.desc) {
+								this.viewport = CreateStudentView();
+								await this.connection.setRemoteDescription(new RTCSessionDescription(change.doc.data().desc));
+							}
 						}
 					});
-				});
+				});*/
 			}
 		});
+	};
+
+	SetRemoteDescription(description: RTCSessionDescriptionInit, connectDoc?: any) {
+		this.connection.setRemoteDescription(new RTCSessionDescription(description));
+
+		if (this.type === ClientType.TEACHER) {
+			this.viewport = CreateStudentView();
+
+			connectDoc.onSnapshot = ((snapshot: { docChanges: () => any[]; }) => {
+				snapshot.docChanges().forEach(async change => {
+					if (change.type === "added") {
+						this.connection.addIceCandidate(new RTCIceCandidate(change.doc.data()));
+					}
+				});
+			});
+		}
 	}
 
 	async GetUserMedia(type: ClientType) {
@@ -217,7 +206,7 @@ class Peer {
 			// SecondCam initialize
 			/*
 			navigator.mediaDevices.enumerateDevices().then(function(devices) {
-				if (devices[6].kind === 'videoinput') {
+				if (devices[6].kind === "videoinput") {
 					navigator.mediaDevices.getUserMedia({ video: {deviceId: {exact: devices[1].deviceId}}, audio: true }).then(s => {
 						s.getTracks().forEach(track => {
 							this.screenStream.addTrack(track);
@@ -232,4 +221,6 @@ class Peer {
 $(function () {
 	// @ts-ignore
 	firebase.initializeApp(firebaseConfig);
+	// @ts-ignore
+	firestore = firebase.firestore();
 });

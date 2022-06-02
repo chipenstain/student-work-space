@@ -16,12 +16,12 @@ $(function () {
 
 		if (roomID != "") {
 			// @ts-ignore
-			const roomDoc = firestore.collection('rooms').doc(roomIdInput);
-			const calleeCandidates = await roomDoc.collection('calleeCandidates').get();
+			const roomDoc = firestore.collection("rooms").doc(roomIdInput);
+			const calleeCandidates = await roomDoc.collection("calleeCandidates").get();
 			calleeCandidates.forEach(async (candidate: { ref: { delete: () => any; }; }) => {
 				await candidate.ref.delete();
 			});
-			const callerCandidates = await roomDoc.collection('callerCandidates').get();
+			const callerCandidates = await roomDoc.collection("callerCandidates").get();
 			callerCandidates.forEach(async (candidate: { ref: { delete: () => any; }; }) => {
 				await candidate.ref.delete();
 			});
