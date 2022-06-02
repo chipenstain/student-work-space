@@ -26,6 +26,7 @@ public/**/*
 
 #TMPs
 tmp
+*.tmp.txt
 
 #Logs
 *.log

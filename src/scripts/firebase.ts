@@ -37,8 +37,8 @@ enum ClientType {
 };
 
 class Peer {
+	remoteID: string | undefined;
 	type: ClientType;
-	id: number;
 
 	viewport: Viewport | null;
 	streamCount: number;
@@ -52,13 +52,8 @@ class Peer {
 	remoteCameraStream: MediaStream;
 	remoteScreenStream: MediaStream;
 
-	roomDoc: any;
-	clientDoc: any;
-
-
-	constructor(id: number, type: ClientType) {
+	constructor(type: ClientType) {
 		this.type = type;
-		this.id = id;
 
 		this.viewport = null;
 		this.streamCount = 0;
@@ -70,7 +65,7 @@ class Peer {
 		this.remoteCameraStream = new MediaStream();
 		this.remoteScreenStream = new MediaStream();
 
-		this.GetUserMedia(type).then(async () => {
+		this.GetUserMedia().then(async () => {
 			this.connection = new RTCPeerConnection(servers);
 
 			this.connection.onicecandidate = (event: RTCPeerConnectionIceEvent) => {
@@ -80,7 +75,7 @@ class Peer {
 				}
 				else {
 					console.log("Got candidate: ", event.candidate);
-					this.clientDoc.collection("candidates").add(event.candidate.toJSON());
+					clientDoc.collection("candidates").add(event.candidate.toJSON());
 				}
 			};
 
@@ -119,46 +114,32 @@ class Peer {
 
 			if (type === ClientType.STUDENT) {
 				this.viewport = CreateTeacherView();
-				const teacherData = (await (this.roomDoc.collection("teacher").get())).docs[0].data();
+				const teacherData = (await (roomDoc.collection("teacher").get())).docs[0].data();
 				await this.SetRemoteDescription(teacherData.desc);
 				this.connection.createAnswer().then(async (desc) => {
 					await this.connection.setLocalDescription(desc);
-					await this.clientDoc.set({ name: studentNameInput.val() });
-					await this.clientDoc.update({ desc: { sdp: desc.sdp, type: desc.type } });
+					await clientDoc.set({ name: studentNameInput.val() });
+					await clientDoc.update({ desc: { sdp: desc.sdp, type: desc.type } });
 					console.log("Got room");
 				});
 			}
 			else if (type === ClientType.TEACHER) {
 				this.connection.createOffer().then(async (desc) => {
 					await this.connection.setLocalDescription(desc);
-					await this.clientDoc.set({ name: teacherNameInput.val() });
-					await this.clientDoc.update({ desc: { sdp: desc.sdp, type: desc.type } });
-					console.log(`New room created with SDP offer. Room ID: ${this.roomDoc.id}`);
+					await clientDoc.set({ name: teacherNameInput.val() });
+					await clientDoc.update({ desc: { sdp: desc.sdp, type: desc.type } });
+					console.log(`New room created with SDP offer. Room ID: ${roomDoc.id}`);
 				});
 			}
 
 			if (type === ClientType.STUDENT) {
-				let teacherID = (await (this.roomDoc.collection("teacher").get())).docs[0].id;
-
-				firestore.collection("rooms/" + roomID + "/teacher/" + teacherID + "/candidates").onSnapshot((snapshot: { docChanges: () => any[]; }) => {
+				firestore.collection("rooms/" + roomID + "/teacher/" + this.GetRemoteID() + "/candidates").onSnapshot((snapshot: { docChanges: () => any[]; }) => {
 					snapshot.docChanges().forEach((change: { type: string; doc: { data: () => any; }; }) => {
 						if (change.type === "added") {
 							this.connection.addIceCandidate(new RTCIceCandidate(change.doc.data()));
 						}
 					});
 				});
-			}
-			else if (type === ClientType.TEACHER) {
-				/*this.roomDoc.collection("students").onSnapshot(async (snapshot: {[x: string]: any; data: () => any;}) => {
-					snapshot.docChanges().forEach(async (change: { type: string; doc: { data: () => { (): any; new(): any; desc: any; }; }; }) => {
-						if (change.type === "added") {
-							if (!this.connection.currentRemoteDescription && change.doc.data()?.desc) {
-								this.viewport = CreateStudentView();
-								await this.connection.setRemoteDescription(new RTCSessionDescription(change.doc.data().desc));
-							}
-						}
-					});
-				});*/
 			}
 		});
 	};
@@ -169,17 +150,17 @@ class Peer {
 		if (this.type === ClientType.TEACHER) {
 			this.viewport = CreateStudentView();
 
-			connectDoc.onSnapshot = ((snapshot: { docChanges: () => any[]; }) => {
+/*			connectDoc.onSnapshot = ((snapshot: { docChanges: () => any[]; }) => {
 				snapshot.docChanges().forEach(async change => {
 					if (change.type === "added") {
 						this.connection.addIceCandidate(new RTCIceCandidate(change.doc.data()));
 					}
 				});
-			});
+			});*/
 		}
 	}
 
-	async GetUserMedia(type: ClientType) {
+	async GetUserMedia() {
 		// Mic initialize
 		await navigator.mediaDevices.getUserMedia({ audio: true }).then(s => {
 			s.getAudioTracks().forEach(track => {
@@ -194,7 +175,7 @@ class Peer {
 			});
 		});
 
-		if (type === ClientType.STUDENT) {
+		if (this.type === ClientType.STUDENT) {
 			// Screen Initialize
 			await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true }).then(s => {
 				s.getTracks().forEach(track => {
@@ -202,7 +183,7 @@ class Peer {
 				});
 			});
 		}
-		else if (type === ClientType.TEACHER) {
+		else if (this.type === ClientType.TEACHER) {
 			// SecondCam initialize
 			/*
 			navigator.mediaDevices.enumerateDevices().then(function(devices) {
@@ -215,6 +196,10 @@ class Peer {
 				}
 			});*/
 		}
+	}
+
+	async GetRemoteID() {
+		return (await (roomDoc.collection("teacher").get())).docs[0].id;
 	}
 }
 
