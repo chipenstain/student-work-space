@@ -13,6 +13,116 @@ div#teacher_client.content {
 	border-style: solid;
 	border-radius: 7px;
 
+	div#tasks-container {
+		position: fixed;
+		margin: 0 auto;
+
+		display: none;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+
+		height: 60%;
+		width: 80%;
+
+		padding: 20px;
+
+		border-width: 2px;
+		border-style: solid;
+		border-radius: 9px;
+
+		span.title {
+			position: absolute;
+
+			top: 0;
+
+			width: 100%;
+			height: 10%;
+
+			margin-bottom: 25px;
+
+			text-align: center;
+			font-size: 2.5em;
+			font-weight: 900;
+
+			border-bottom-width: 2px;
+			border-bottom-style: solid;
+		}
+
+		div.container {
+			position: absolute;
+			bottom: 0;
+
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+
+			width: 100%;
+			height: 90%;
+
+			div.general {
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+				align-items: center;
+
+				width:  calc(20% - 60px);
+				height: calc(100% - 40px);
+
+				padding: 20px 30px;
+
+				border-right-width: 2px;
+				border-right-style: solid;
+
+				div.btn {
+					width: calc(100% - 70px);
+					margin-bottom: 7px;
+
+					a {
+						flex-wrap: wrap;
+
+						span {
+							width: 100%;
+
+							margin-bottom: 5px;
+
+							text-align: center;
+							font-size: 1.7em;
+							font-weight: 900;
+
+							border-bottom-width: 2px;
+							border-bottom-style: solid;
+							border-radius: 9px;
+						}
+
+						input {
+							width: 100%;
+							height: 20%;
+
+							font-size: 1.2em;
+							font-weight: 400;
+
+							border-bottom-width: 2px;
+							border-bottom-style: solid;
+							border-radius: 9px;
+						}
+					}
+				}
+			}
+
+			div.sub {
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
+				align-items: center;
+
+				width: 80%;
+				height: 100%;
+			}
+		}
+	}
+
 	div.main-panel {
 		display: flex;
 		width: 100%;
@@ -34,6 +144,8 @@ div#teacher_client.content {
 			overflow: auto;
 
 			div.viewport {
+				position: relative;
+
 				width: 30%;
 				height: auto;
 
@@ -42,6 +154,20 @@ div#teacher_client.content {
 				border-width: 2px;
 				border-style: solid;
 				border-radius: 7px;
+
+				div.name {
+					position: absolute;
+					bottom: 0;
+
+					width: 100%;
+
+					padding-top: 10px;
+					padding-bottom: 10px;
+
+					text-align: center;
+
+					opacity: 0.5;
+				}
 
 				div.screen {
 					position: relative;
@@ -151,6 +277,14 @@ div#teacher_client.content {
 		div.general-panel {
 			width: calc(100% - 500px);
 			height: 100%;
+
+			span.current-room {
+				margin-left: 30px;
+
+				-webkit-user-select: text;
+				-moz-user-select: text;
+				user-select: text;
+			}
 		}
 
 		div.sub-panel {

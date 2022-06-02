@@ -3,6 +3,42 @@ div#home.content {
 	justify-content: space-around;
 	align-items: center;
 
+	div.info {
+		position: fixed;
+		margin: 0 auto;
+
+		display: none;
+		flex-direction: column;
+		justify-content: space-evenly;
+		align-items: center;
+
+		height: 40%;
+		width: 60%;
+
+		padding: 20px;
+
+		border-width: 2px;
+		border-style: solid;
+		border-radius: 9px;
+
+		span.title {
+			position: absolute;
+
+			top: 0;
+
+			width: 100%;
+
+			margin-bottom: 25px;
+
+			text-align: center;
+			font-size: 2.5em;
+			font-weight: 900;
+
+			border-bottom-width: 2px;
+			border-bottom-style: solid;
+		}
+	}
+
 	.btn {
 		display: flex;
 		flex-direction: column;
@@ -61,5 +97,17 @@ div#home.content {
 				}
 			}
 		}
+	}
+
+	.btn:hover {
+		opacity: 1;
+	}
+
+	.btn:active {
+		opacity: 1;
+	}
+
+	.inf {
+		height: auto;
 	}
 }

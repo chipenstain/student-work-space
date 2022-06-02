@@ -1,38 +1,52 @@
 let studentViewport: JQuery<HTMLDivElement>
 
-let endCallStudentBtn: JQuery<HTMLDivElement>;
-let videoStudentBtn: JQuery<HTMLDivElement>;
-let audioStudentBtn: JQuery<HTMLDivElement>;
-
 $(function () {
 	studentViewport = $("div#student_client.content div.main-panel div.general-panel");
 
-	endCallStudentBtn = $("div#student_client div.end-call-btn");
-	videoStudentBtn = $("div#student_client div.video-btn");
-	audioStudentBtn = $("div#student_client div.mic-btn");
-
-	endCallStudentBtn.on("click", async function () {
+	$("div#student_client div.end-call-btn").on("click", async async => {
 		SetLoad(true);
 
-		if (roomID != "") {
-			// @ts-ignore
-			const roomDoc = firestore.collection("rooms").doc(roomIdInput);
-			const calleeCandidates = await roomDoc.collection("calleeCandidates").get();
-			calleeCandidates.forEach(async (candidate: { ref: { delete: () => any; }; }) => {
-				await candidate.ref.delete();
+		peers.forEach((peer: Peer) => {
+			peer.connection.close();
+			peer.micStream.getTracks().forEach((track) => {
+				track.stop();
 			});
-			const callerCandidates = await roomDoc.collection("callerCandidates").get();
-			callerCandidates.forEach(async (candidate: { ref: { delete: () => any; }; }) => {
-				await candidate.ref.delete();
+			peer.cameraStream.getTracks().forEach((track) => {
+				track.stop();
 			});
-			await roomDoc.delete();
-		}
+			peer.screenStream.getTracks().forEach((track) => {
+				track.stop();
+			});
+		});
+		peers = [];
+
+		await clientDoc.delete();
 
 		ChangeView(VIEWS.HOME);
 	});
+
+	$("div#student_client div.video-btn").on("click", () => {
+
+	});
+
+	$("div#student_client div.mic-btn").on("click", () => {
+
+	});
+
+	$("div#student_client div.ask").on("click", () => {
+
+	});
+
+	$("div#student_client div.files").on("click", () => {
+
+	});
+
+	$("div#student_client div.send").on("click", () => {
+
+	});
 });
 
-function CreateTeacherView() {
+function CreateTeacherView(name: string) {
 	let viewport: JQuery<HTMLDivElement> = $("<div class='viewport'>");
 	studentViewport.append(viewport);
 
@@ -50,6 +64,10 @@ function CreateTeacherView() {
 
 	let mic: JQuery<HTMLVideoElement> = $("<audio autoplay>");
 	viewport.append(mic);
+
+	let nameHolder: JQuery<HTMLDivElement> = $("<div class='name'>");
+	nameHolder.text(name);
+	viewport.append(nameHolder);
 
 	return { mic: mic[0], camera: camera[0], screen: screen[0] };
 }

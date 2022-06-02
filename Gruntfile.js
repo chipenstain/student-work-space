@@ -11,7 +11,7 @@ module.exports = function (grunt) {
 				files: [{
 					expand: true,
 					cwd: "src/views/",
-					src: ["**/*.pug", "../index.pug", "!inc/**/*.pug"],
+					src: ["../index.pug"],
 					dest: "tmp/views/",
 					ext: ".html"
 				}]

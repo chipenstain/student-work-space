@@ -19,7 +19,37 @@ div#teacher_client.content
 				a
 					img(src="images/icons/video.png")
 					button
+			div.btn.standart-mode
+				a
+					span standart mode
+					button
+			div.btn.lection-mode
+				a
+					span lection mode
+					button
+			span.current-room room number is:
 		div.sub-panel
-			div.btn
+			div.btn.tasks
 				a
 					button Tasks
+	div#tasks-container
+		span.title Current Task
+		div.container
+			div.general
+				div.btn.theme
+					a
+						span Theme
+						input.btn(type="text" placeholder="Current Theme")
+				div.btn
+					a
+						span Tasks
+				div.btn
+					a
+						span Files
+				div.btn
+					a
+						span Links
+				div.btn.enabled-btn
+					a
+						span Save
+			div.sub

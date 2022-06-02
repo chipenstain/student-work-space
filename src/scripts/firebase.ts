@@ -113,8 +113,8 @@ class Peer {
 			};
 
 			if (type === ClientType.STUDENT) {
-				this.viewport = CreateTeacherView();
 				const teacherData = (await (roomDoc.collection("teacher").get())).docs[0].data();
+				this.viewport = CreateTeacherView(teacherData.name);
 				await this.SetRemoteDescription(teacherData.desc);
 				this.connection.createAnswer().then(async (desc) => {
 					await this.connection.setLocalDescription(desc);
@@ -144,19 +144,11 @@ class Peer {
 		});
 	};
 
-	SetRemoteDescription(description: RTCSessionDescriptionInit, connectDoc?: any) {
+	SetRemoteDescription(description: RTCSessionDescriptionInit, name?: string) {
 		this.connection.setRemoteDescription(new RTCSessionDescription(description));
 
 		if (this.type === ClientType.TEACHER) {
-			this.viewport = CreateStudentView();
-
-/*			connectDoc.onSnapshot = ((snapshot: { docChanges: () => any[]; }) => {
-				snapshot.docChanges().forEach(async change => {
-					if (change.type === "added") {
-						this.connection.addIceCandidate(new RTCIceCandidate(change.doc.data()));
-					}
-				});
-			});*/
+			this.viewport = CreateStudentView(name!);
 		}
 	}
 

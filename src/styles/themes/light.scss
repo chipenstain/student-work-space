@@ -1,0 +1,132 @@
+$text-dark: #160201;
+$text-light: #161616;
+
+$background-dark: #d4d3cb;
+$background-light: #c1c1c1;
+
+$border-color-dark: #707070;
+$border-color-light: #9b9b9b;
+
+$contrast-color-type1: #e9e9da;
+$contrast-color-type2: #b9ac99;
+$contrast-color-type3: #eaeecb;
+$contrast-color-type4: #d8d8c7;
+$contrast-color-type5: #c4c4c4;
+
+$shadow-color: #222222;
+
+$color-disabled: #ab4848;
+$color-enabled: #48ab5e;
+$color-wait: #ab9c48;
+
+* {
+	color: $text-light
+}
+
+header,
+footer {
+	background-color: $background-light;
+}
+
+header {
+	box-shadow: 0px 2px 9px $shadow-color;
+}
+
+footer {
+	box-shadow: 0px -2px 9px $shadow-color;
+}
+
+main {
+	background-color: $background-dark;
+}
+
+div#app-container {
+	border-color: $border-color-light;
+}
+
+div.content {
+	border-color: $border-color-light;
+
+	.info {
+		background-color: $contrast-color-type1;
+		border-color: $border-color-dark;
+
+		span.title {
+			border-color: $border-color-dark;
+		}
+	}
+
+	div.main-panel {
+		div.general-panel {
+			background-color: $background-light;
+			border-color: $border-color-dark;
+
+			div.viewport
+			{
+				background-color: $background-dark;
+				border-color: $border-color-dark;
+
+				div.screen {
+					div.camera {
+						border-color: $border-color-light;
+					}
+				}
+			}
+		}
+
+		div.sub-panel {
+			div.query-list {
+				background-color: $contrast-color-type1;
+				border-color: $border-color-dark;
+
+				div.title {
+					background-color: $contrast-color-type4;
+				}
+
+				div {
+					border-color: $border-color-dark;
+				}
+			}
+		}
+	}
+
+	div.control-panel {
+		border-color: $border-color-dark;
+
+		div.sub-panel {
+			.btn {
+				background-color: $contrast-color-type5;
+			}
+		}
+	}
+}
+
+.btn {
+	background-color: $contrast-color-type1;
+	border-color: $border-color-dark;
+}
+
+.enabled-btn {
+	background-color: $color-enabled;
+}
+
+.disabled-btn {
+	background-color: $color-disabled;
+	color: $text-dark;
+
+	a {
+		button {
+			color: $text-dark;
+		}
+	}
+}
+
+.wait-btn {
+	background-color: $color-wait;
+
+	a {
+		button {
+			color: $text-dark;
+		}
+	}
+}

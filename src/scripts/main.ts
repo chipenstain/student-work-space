@@ -16,12 +16,15 @@ let viewThemeHolder: JQuery<HTMLLinkElement>;
 
 let header: JQuery<HTMLElement>;
 let footer: JQuery<HTMLElement>;
+let about: JQuery<HTMLDivElement>;
+let help: JQuery<HTMLDivElement>;
 
 let loadBar: JQuery<HTMLDivElement>
 let appContainer: JQuery<HTMLDivElement>;
 
 let views: JQuery<HTMLDivElement>;
 let currentView: VIEWS;
+let currentTheme: THEMES;
 
 $(function () {
 	windowTitle = $("title");
@@ -31,6 +34,30 @@ $(function () {
 
 	header = $("header");
 	footer = $("footer");
+	about = $("div#about-container");
+	help = $("div#help-container");
+
+	$("div#about").on("click", ()=> {
+		about.css("display", "flex").show();
+	});
+	$("div#help").on("click", ()=> {
+		help.css("display", "flex").show();
+	});
+	$("button.btn.inf").on("click", ()=> {
+		about.hide();
+		help.hide();
+	})
+
+	$("div#theme").on("click", ()=> {
+		if (currentTheme === THEMES.LIGHT) {
+			ChangeTheme(THEMES.DARK);
+			currentTheme = THEMES.DARK;
+		}
+		else {
+			ChangeTheme(THEMES.LIGHT);
+			currentTheme = THEMES.LIGHT;
+		}
+	});
 
 	loadBar = $("div#loading-bar");
 	appContainer = $("div#app-container");
@@ -43,30 +70,31 @@ $(function () {
 
 function ChangeView(view: VIEWS) {
 	ApplyView(view);
-
-	switch (view) {
-		case VIEWS.HOME:
-			$(views[0]).css("display", "flex").show();
-			header.css("display", "flex").show();;
-			footer.css("display", "flex").show();
-			windowTitle.text("SWS | Student Work Space");
-			break;
-		case VIEWS.STUDENT_CLIENT:
-			$(views[1]).css("display", "flex").show();
-			header.hide();
-			footer.hide();
-			windowTitle.text("SWS | Student client");
-			break;
-		case VIEWS.TEACHER_CLIENT:
-			$(views[2]).css("display", "flex").show();
-			header.hide();
-			footer.hide();
-			windowTitle.text("SWS | Teacher client");
-			break;
-	}
-	currentView = view;
-	SetLoad(false);
-}
+	setTimeout(() => {
+		SetLoad(false);
+		switch (view) {
+			case VIEWS.HOME:
+				$(views[0]).css("display", "flex").show();
+				header.css("display", "flex").show();;
+				footer.css("display", "flex").show();
+				windowTitle.text("SWS | Student Work Space");
+				break;
+			case VIEWS.STUDENT_CLIENT:
+				$(views[1]).css("display", "flex").show();
+				header.hide();
+				footer.hide();
+				windowTitle.text("SWS | Student client");
+				break;
+			case VIEWS.TEACHER_CLIENT:
+				$(views[2]).css("display", "flex").show();
+				header.hide();
+				footer.hide();
+				windowTitle.text("SWS | Teacher client");
+				break;
+		}
+		currentView = view;
+	}, 500);
+};
 
 function ApplyView(view: VIEWS) {
 	viewThemeHolder.attr("href", "styles/" + view + ".css");

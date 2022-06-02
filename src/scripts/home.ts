@@ -13,7 +13,10 @@ $(function () {
 			SetLoad(true);
 
 			roomDoc = firestore.collection("rooms").doc();
+			roomDoc.set({ theme: "" });
 			roomID = roomDoc.id;
+
+			$("div#teacher_client span.current-room").text("room number is: " + roomID as string);
 
 			clientDoc = roomDoc.collection("teacher").doc();
 
@@ -24,7 +27,7 @@ $(function () {
 					if (change.type === "added" || change.type === "modified") {
 						let peer: Peer = peers[peers.length - 1];
 						if (!peer.connection.currentRemoteDescription && change.doc.data()?.desc) {
-							await peer.SetRemoteDescription(change.doc.data().desc, change.doc);
+							await peer.SetRemoteDescription(change.doc.data().desc, change.doc.data().name);
 
 							firestore.collection("rooms/" + roomID + "/students/" + change.doc.id + "/candidates").onSnapshot((snapshot: { docChanges: () => any[]; }) => {
 								snapshot.docChanges().forEach((change: { type: string; doc: { data: () => any; }; }) => {
@@ -48,13 +51,16 @@ $(function () {
 		}
 	});
 
-	$("div#student-mode").on("click", () => {
+	$("div#student-mode").on("click", async () => {
 		if (studentNameInput.val() !== "" && roomIdInput.val() !== "")
 		{
 			SetLoad(true);
 
 			roomID = roomIdInput.val();
 			roomDoc = firestore.collection("rooms").doc(roomID);
+
+			$("div#student_client span.current-room").text("room number is: " + roomID as string);
+			$("div#student_client div.theme div.theme").text((await (roomDoc.get())).data().theme);
 
 			clientDoc = roomDoc.collection("students").doc();
 

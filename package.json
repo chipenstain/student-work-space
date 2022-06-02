@@ -2,7 +2,7 @@
 	"name": "studentworkspace",
 	"version": "0.0.1",
 	"description": "web app for automatization education process at colleges",
-	"main": "public/main.min.html",
+	"main": "public/index.html",
 	"scripts": {
 		"serve": "firebase serve"
 	},
@@ -13,7 +13,7 @@
 	"bugs": {
 		"url": "https://github.com/chipenstain/student-work-space/issues"
 	},
-	"homepage": "https://github.com/chipenstain/student-work-space#readme",
+	"homepage": "https://studentworkspace-21fb2.web.app/",
 	"keywords": [
 		"student",
 		"webrtc",

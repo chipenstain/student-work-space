@@ -1,38 +1,59 @@
 let teacherViewport: JQuery<HTMLDivElement>
-
-let endCallTeacherBtn: JQuery<HTMLDivElement>;
-let videoTeacherBtn: JQuery<HTMLDivElement>;
-let audioTeacherBtn: JQuery<HTMLDivElement>;
+let tasksView: JQuery<HTMLDivElement>
 
 $(function () {
 	teacherViewport = $("div#teacher_client.content div.main-panel div.general-panel");
+	tasksView = $("div#teacher_client.content div#tasks-container");
 
-	endCallTeacherBtn = $("div#teacher_client div.end-call-btn");
-	videoTeacherBtn = $("div#teacher_client div.video-btn");
-	audioTeacherBtn = $("div#teacher_client div.mic-btn");
-
-	endCallTeacherBtn.on("click", async function () {
+	$("div#teacher_client div.end-call-btn").on("click", async async => {
 		SetLoad(true);
 
-		if (roomID != "") {
-			// @ts-ignore
-			const roomDoc = firestore.collection("rooms").doc(roomIdInput);
-			const calleeCandidates = await roomDoc.collection("calleeCandidates").get();
-			calleeCandidates.forEach(async (candidate: { ref: { delete: () => any; }; }) => {
-				await candidate.ref.delete();
+		peers.forEach((peer: Peer) => {
+			peer.connection.close();
+			peer.micStream.getTracks().forEach((track) => {
+				track.stop();
 			});
-			const callerCandidates = await roomDoc.collection("callerCandidates").get();
-			callerCandidates.forEach(async (candidate: { ref: { delete: () => any; }; }) => {
-				await candidate.ref.delete();
+			peer.cameraStream.getTracks().forEach((track) => {
+				track.stop();
 			});
-			await roomDoc.delete();
-		}
+			peer.screenStream.getTracks().forEach((track) => {
+				track.stop();
+			});
+		});
+		peers = [];
+
+		await roomDoc.delete();
 
 		ChangeView(VIEWS.HOME);
 	});
+
+	$("div#teacher_client div.video-btn").on("click", () => {
+
+	});
+
+	$("div#teacher_client div.mic-btn").on("click", () => {
+
+	});
+
+	$("div#teacher_client div.standart-mode").on("click", () => {
+
+	});
+
+	$("div#teacher_client div.lection-mode").on("click", () => {
+
+	});
+
+	$("div#teacher_client div.tasks").on("click", () => {
+		tasksView.css("display", "flex").show();
+	});
+
+	$("div#teacher_client div#tasks-container div.btn.enabled-btn").on("click", () => {
+		roomDoc.update({ theme: $("div#teacher_client div#tasks-container div.theme a input").val() });
+		tasksView.hide();
+	});
 });
 
-function CreateStudentView() {
+function CreateStudentView(name: string) {
 	let viewport: JQuery<HTMLDivElement> = $("<div class='viewport'>");
 	teacherViewport.append(viewport);
 
@@ -50,6 +71,10 @@ function CreateStudentView() {
 
 	let mic: JQuery<HTMLVideoElement> = $("<audio autoplay>");
 	viewport.append(mic);
+
+	let nameHolder: JQuery<HTMLDivElement> = $("<div class='name'>");
+	nameHolder.text(name);
+	viewport.append(nameHolder);
 
 	return { mic: mic[0], camera: camera[0], screen: screen[0] };
 }

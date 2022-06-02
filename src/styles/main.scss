@@ -10,6 +10,9 @@
 	margin: 0;
 	padding: 0;
 	font-family: "Montserrat", sans-serif;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
 }
 
 html,
@@ -58,9 +61,18 @@ div#app-container {
 
 	margin: 5px;
 
+	display: flex;
+    justify-content: center;
+    align-items: center;
+
 	div#loading-bar {
-		height: 50px;
-		width: 50px;
+		position: fixed;
+		margin: 0 auto;
+
+		display: none;
+
+		height: 80px;
+		width: 80px;
 
 		img {
 			height: 100%;

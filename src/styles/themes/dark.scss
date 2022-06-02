@@ -47,6 +47,28 @@ div#app-container {
 div.content {
 	border-color: $border-color-light;
 
+	.info {
+		background-color: $contrast-color-type1;
+		border-color: $border-color-dark;
+
+		span.title {
+			border-color: $border-color-dark;
+		}
+	}
+
+	div#tasks-container {
+		background-color: $contrast-color-type1;
+		border-color: $border-color-dark;
+
+		span.title {
+			border-color: $border-color-dark;
+		}
+
+		div.general {
+			border-color: $border-color-dark;
+		}
+	}
+
 	div.main-panel {
 		div.general-panel {
 			background-color: $background-light;
@@ -56,6 +78,10 @@ div.content {
 			{
 				background-color: $background-dark;
 				border-color: $border-color-dark;
+
+				div.name {
+					background-color: $contrast-color-type4;
+				}
 
 				div.screen {
 					div.camera {
