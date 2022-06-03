@@ -4,25 +4,7 @@ $(function () {
 	studentViewport = $("div#student_client.content div.main-panel div.general-panel");
 
 	$("div#student_client div.end-call-btn").on("click", async async => {
-		SetLoad(true);
-
-		peers.forEach((peer: Peer) => {
-			peer.connection.close();
-			peer.micStream.getTracks().forEach((track) => {
-				track.stop();
-			});
-			peer.cameraStream.getTracks().forEach((track) => {
-				track.stop();
-			});
-			peer.screenStream.getTracks().forEach((track) => {
-				track.stop();
-			});
-		});
-		peers = [];
-
-		await clientDoc.delete();
-
-		ChangeView(VIEWS.HOME);
+		Disconnect(ClientType.STUDENT);
 	});
 
 	$("div#student_client div.video-btn").on("click", () => {
@@ -69,5 +51,5 @@ function CreateTeacherView(name: string) {
 	nameHolder.text(name);
 	viewport.append(nameHolder);
 
-	return { mic: mic[0], camera: camera[0], screen: screen[0] };
+	return { container: viewport, mic: mic[0], camera: camera[0], screen: screen[0] };
 }

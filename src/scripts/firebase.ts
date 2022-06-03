@@ -26,6 +26,7 @@ let clientDoc: any;
 let peers: Array<Peer> = new Array();
 
 interface Viewport {
+	container: JQuery<HTMLDivElement>;
 	mic: HTMLAudioElement;
 	camera: HTMLVideoElement;
 	screen: HTMLVideoElement;
@@ -37,6 +38,7 @@ enum ClientType {
 };
 
 class Peer {
+	id: string | undefined;
 	remoteID: string | undefined;
 	type: ClientType;
 
@@ -52,7 +54,11 @@ class Peer {
 	remoteCameraStream: MediaStream;
 	remoteScreenStream: MediaStream;
 
-	constructor(type: ClientType) {
+	constructor(type: ClientType, id?: string) {
+		if (id) {
+			this.id = id;
+		}
+
 		this.type = type;
 
 		this.viewport = null;
@@ -193,6 +199,52 @@ class Peer {
 	async GetRemoteID() {
 		return (await (roomDoc.collection("teacher").get())).docs[0].id;
 	}
+}
+
+async function Disconnect(type: ClientType) {
+	SetLoad(true);
+
+	peers.forEach(async (peer: Peer) => {
+		peer.connection.close();
+		peer.micStream.getTracks().forEach((track) => {
+			track.stop();
+		});
+		peer.cameraStream.getTracks().forEach((track) => {
+			track.stop();
+		});
+		peer.screenStream.getTracks().forEach((track) => {
+			track.stop();
+		});
+		peer.viewport?.container.remove();
+
+		if (type === ClientType.STUDENT) {
+			firestore.collection("rooms/" + roomID + "/teacher/" + peer.GetRemoteID() + "/candidates").onSnapshot(() => { });
+			(await firestore.collection("rooms/" + roomID + "/students/" + clientDoc.id + "/candidates").get()).docs.forEach((doc: any) => {
+				doc.ref.delete()
+			});
+		}
+		else if (type === ClientType.TEACHER) {
+			(await firestore.collection("rooms/" + roomID + "/teacher/" + clientDoc.id + "/candidates").get()).docs.forEach((doc: any) => {
+				doc.ref.delete();
+			});
+		}
+	});
+	peers = [];
+
+	if (type === ClientType.STUDENT) {
+		roomDoc.onSnapshot(() => { });
+		firestore.collection("rooms").onSnapshot(() => { });
+
+		await clientDoc.delete();
+	}
+	else if (type === ClientType.TEACHER) {
+		roomDoc.collection("students").onSnapshot(() => { });
+
+		await clientDoc.delete();
+		await roomDoc.delete();
+	}
+
+	ChangeView(VIEWS.HOME);
 }
 
 $(function () {
