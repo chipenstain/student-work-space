@@ -1,4 +1,4 @@
-$text-dark: #160201;
+$text-dark: #202020;
 $text-light: #fefcdc;
 
 $background-dark: #303030;
@@ -69,13 +69,35 @@ div.content {
 		}
 	}
 
+	div#sendtask-container {
+		background-color: $contrast-color-type1;
+		border-color: $border-color-dark;
+
+		span.title {
+			border-color: $border-color-dark;
+		}
+
+		label {
+			background-color: $background-light;
+			border-color: $border-color-dark;
+		}
+	}
+
+	div#files-container {
+		background-color: $contrast-color-type1;
+		border-color: $border-color-dark;
+
+		span.title {
+			border-color: $border-color-dark;
+		}
+	}
+
 	div.main-panel {
 		div.general-panel {
 			background-color: $background-light;
 			border-color: $border-color-dark;
 
-			div.viewport
-			{
+			div.viewport {
 				background-color: $background-dark;
 				border-color: $border-color-dark;
 
@@ -100,8 +122,17 @@ div.content {
 					background-color: $contrast-color-type4;
 				}
 
-				div {
-					border-color: $border-color-dark;
+				div.container {
+					div.query-element {
+						background-color: $contrast-color-type4;
+						border-color: $border-color-light;
+
+						span.title {
+							border-color: $border-color-light;
+							color: $text-dark;
+						}
+					}
+
 				}
 			}
 		}
@@ -109,6 +140,14 @@ div.content {
 
 	div.control-panel {
 		border-color: $border-color-dark;
+
+		span.current-room:hover {
+			color: $text-dark;
+		}
+
+		span.current-room:active {
+			color: $text-dark;
+		}
 
 		div.sub-panel {
 			.btn {

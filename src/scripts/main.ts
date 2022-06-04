@@ -37,18 +37,18 @@ $(function () {
 	about = $("div#about-container");
 	help = $("div#help-container");
 
-	$("div#about").on("click", ()=> {
+	$("div#about").on("click", () => {
 		about.css("display", "flex").show();
 	});
-	$("div#help").on("click", ()=> {
+	$("div#help").on("click", () => {
 		help.css("display", "flex").show();
 	});
-	$("button.btn.inf").on("click", ()=> {
+	$("button.btn.inf").on("click", () => {
 		about.hide();
 		help.hide();
 	})
 
-	$("div#theme").on("click", ()=> {
+	$("div#theme").on("click", () => {
 		if (currentTheme === THEMES.LIGHT) {
 			ChangeTheme(THEMES.DARK);
 			currentTheme = THEMES.DARK;

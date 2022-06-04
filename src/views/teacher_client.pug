@@ -4,7 +4,7 @@ div#teacher_client.content
 		div.sub-panel
 			div.query-list
 				div.title Query
-				div
+				div.container
 	div.control-panel
 		div.general-panel
 			div.btn.disabled-btn.end-call-btn
@@ -27,7 +27,8 @@ div#teacher_client.content
 				a
 					span lection mode
 					button
-			span.current-room room number is:
+			span room number is:
+			span.current-room #id
 		div.sub-panel
 			div.btn.tasks
 				a
@@ -40,16 +41,32 @@ div#teacher_client.content
 					a
 						span Theme
 						input.btn(type="text" placeholder="Current Theme")
-				div.btn
+				div.btn.tasks
 					a
 						span Tasks
-				div.btn
+				div.btn.files
 					a
 						span Files
-				div.btn
+				div.btn.links
 					a
 						span Links
 				div.btn.enabled-btn
 					a
 						span Save
 			div.sub
+				div.tasks-container.con
+					div.control
+						input.btn(type="text" placeholder="task")
+						button.btn Add
+					div.content
+				div.files-container.con
+					div.control
+						label.btn(for="addfileinput") Select file
+						input#addfileinput.btn(type="file")
+						button.btn Add
+					div.content
+				div.links-container.con
+					div.control
+						input.btn(type="text" placeholder="https://link.com")
+						button.btn Add
+					div.content

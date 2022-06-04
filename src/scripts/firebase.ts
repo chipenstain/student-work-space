@@ -23,6 +23,8 @@ let roomID: string | number | string[] | undefined;
 let roomDoc: any;
 let clientDoc: any;
 
+let clientName: string | number | string[] | undefined;
+
 let peers: Array<Peer> = new Array();
 
 interface Viewport {
@@ -124,7 +126,7 @@ class Peer {
 				await this.SetRemoteDescription(teacherData.desc);
 				this.connection.createAnswer().then(async (desc) => {
 					await this.connection.setLocalDescription(desc);
-					await clientDoc.set({ name: studentNameInput.val() });
+					await clientDoc.set({ name: clientName });
 					await clientDoc.update({ desc: { sdp: desc.sdp, type: desc.type } });
 					console.log("Got room");
 				});
@@ -132,7 +134,7 @@ class Peer {
 			else if (type === ClientType.TEACHER) {
 				this.connection.createOffer().then(async (desc) => {
 					await this.connection.setLocalDescription(desc);
-					await clientDoc.set({ name: teacherNameInput.val() });
+					await clientDoc.set({ name: clientName });
 					await clientDoc.update({ desc: { sdp: desc.sdp, type: desc.type } });
 					console.log(`New room created with SDP offer. Room ID: ${roomDoc.id}`);
 				});
@@ -219,13 +221,13 @@ async function Disconnect(type: ClientType) {
 
 		if (type === ClientType.STUDENT) {
 			firestore.collection("rooms/" + roomID + "/teacher/" + peer.GetRemoteID() + "/candidates").onSnapshot(() => { });
-			(await firestore.collection("rooms/" + roomID + "/students/" + clientDoc.id + "/candidates").get()).docs.forEach((doc: any) => {
-				doc.ref.delete()
+			(await firestore.collection("rooms/" + roomID + "/students/" + clientDoc.id + "/candidates").get()).docs.forEach(async (doc: any) => {
+				await doc.ref.delete()
 			});
 		}
 		else if (type === ClientType.TEACHER) {
-			(await firestore.collection("rooms/" + roomID + "/teacher/" + clientDoc.id + "/candidates").get()).docs.forEach((doc: any) => {
-				doc.ref.delete();
+			(await firestore.collection("rooms/" + roomID + "/teacher/" + clientDoc.id + "/candidates").get()).docs.forEach(async (doc: any) => {
+				await doc.ref.delete();
 			});
 		}
 	});
@@ -235,10 +237,33 @@ async function Disconnect(type: ClientType) {
 		roomDoc.onSnapshot(() => { });
 		firestore.collection("rooms").onSnapshot(() => { });
 
+		sendTaskView.hide();
+		filesView.hide();
+
 		await clientDoc.delete();
 	}
 	else if (type === ClientType.TEACHER) {
 		roomDoc.collection("students").onSnapshot(() => { });
+		roomDoc.collection("query").onSnapshot(() => { });
+
+		(await roomDoc.collection("query").get()).docs.forEach(async (doc: any) => {
+			await doc.ref.delete();
+		});
+
+		(await roomDoc.collection("tasks").get()).docs.forEach(async (doc: any) => {
+			await doc.ref.delete();
+		});
+
+		(await roomDoc.collection("links").get()).docs.forEach(async (doc: any) => {
+			await doc.ref.delete();
+		});
+
+		(await roomDoc.collection("files").get()).docs.forEach(async (doc: any) => {
+			await doc.ref.delete();
+		});
+
+		queryContainer.children().remove();
+		tasksView.hide();
 
 		await clientDoc.delete();
 		await roomDoc.delete();

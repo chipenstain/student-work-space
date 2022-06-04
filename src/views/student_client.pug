@@ -5,9 +5,9 @@ div#student_client.content
 			div.query-list.theme
 				div.title Theme
 				div.theme
-			div.query-list
+			div.query-list.tasks
 				div.title Tasks
-				div
+				div.tasks
 	div.control-panel
 		div.general-panel
 			div.btn.disabled-btn.end-call-btn
@@ -26,7 +26,8 @@ div#student_client.content
 				a
 					span Ask question
 					button
-			span.current-room room number is:
+			span room number is:
+			span.current-room #id
 		div.sub-panel
 			div.btn.files
 				a
@@ -34,3 +35,22 @@ div#student_client.content
 			div.btn.send
 				a
 					button Send task
+	div#sendtask-container
+		span.title Send Task
+		div.container
+			label(for="sendtaskinput") Select file
+			input#sendtaskinput(type="file")
+			div.btn
+				a
+					span Close
+	div#files-container
+		span.title Files
+		div.container
+			div
+				div.links
+				div.files
+			div.btn
+				a
+					span Close
+
+
