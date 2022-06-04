@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 	grunt.initConfig({
 		//======Pug=======
 		pug: {
@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: "src/views/",
-					src: ["**/*.pug", "../main.pug", "!inc/**/*.pug"],
+					src: ["../index.pug"],
 					dest: "tmp/views/",
 					ext: ".html"
 				}]
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
 
 		//========TypeScript=======
 		ts: {
-			default : {
+			default: {
 				tsconfig: "./tsconfig.json"
 			}
 		},
@@ -59,9 +59,9 @@ module.exports = function(grunt) {
 				files: [{
 					expand: true,
 					cwd: "tmp/views",
-					src: ["**/*.html", "../main.html"],
+					src: ["**/*.html", "../index.html"],
 					dest: "public/views/",
-					ext: ".min.html"
+					ext: ".html"
 				}]
 			}
 		},
@@ -77,7 +77,7 @@ module.exports = function(grunt) {
 					cwd: "tmp/styles",
 					src: ["**/*.css"],
 					dest: "public/styles/",
-					ext: ".min.css"
+					ext: ".css"
 				}]
 			}
 		},
@@ -89,7 +89,7 @@ module.exports = function(grunt) {
 					optimizationLevel: 5,
 					progressive: true,
 					interlaced: true,
-					svgoPlugins: [{removeViewBox: false}]
+					svgoPlugins: [{ removeViewBox: false }]
 				},
 				files: [{
 					expand: true,
@@ -106,14 +106,15 @@ module.exports = function(grunt) {
 				options: {
 					mangle: false,
 					compress: true,
-					sourceMap: false
+					sourceMap: false,
+					beautify: true
 				},
 				files: [{
 					expand: true,
 					cwd: "tmp/scripts",
 					src: ["**/*.js"],
 					dest: "public/scripts/",
-					ext: ".min.js"
+					ext: ".js"
 				}]
 			}
 		},
@@ -124,7 +125,7 @@ module.exports = function(grunt) {
 				files: ["src/scripts/**/*.ts"],
 				tasks: ["newer:ts"]
 			},
-			'scripts-min':{
+			'scripts-min': {
 				files: ["tmp/scripts/**/*.js"],
 				tasks: ["newer:uglify"]
 			},
@@ -132,7 +133,7 @@ module.exports = function(grunt) {
 				files: ["src/styles/**/*.scss"],
 				tasks: ["newer:dart-sass"]
 			},
-			'styles-min':{
+			'styles-min': {
 				files: ["tmp/styles/**/*.css"],
 				tasks: ["newer:cssmin"]
 			},
@@ -140,7 +141,7 @@ module.exports = function(grunt) {
 				files: ["src/views/**/*.pug", "src/main.pug"],
 				tasks: ["newer:pug"]
 			},
-			'templates-min':{
+			'templates-min': {
 				files: ["tmp/views/**/*.html", "tmp/main.html"],
 				tasks: ["newer:htmlmin"]
 			},
@@ -177,9 +178,9 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks("grunt-ts");
 	grunt.loadNpmTasks("grunt-newer");
 
-	grunt.registerTask("build", ["ts", "dart-sass", "pug", "htmlmin", "cssmin", "imagemin", "uglify"]);
+	grunt.registerTask("build", ["ts", "dart-sass", "pug", "uglify", "cssmin", "htmlmin", "imagemin"]);
 	grunt.registerTask("build_clean", ["clean", "build"]);
 	grunt.registerTask("build_watch", ["build", "watch"]);
 
-	grunt.registerTask("default", ["build_watch"]);
+	grunt.registerTask("default", ["build_clean"]);
 };

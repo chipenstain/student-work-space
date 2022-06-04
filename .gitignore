@@ -1,3 +1,8 @@
+# GITIGNORE FOR PUBLIC
+
+!public
+src
+
 #Project files
 *.rsuser
 *.suo
@@ -7,21 +12,23 @@
 
 .vs/
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/*.code-snippets
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+.vscode/*.code-snippets
 
 [Oo]bj/
 .tscache/
+*.cache
 
 #NODE Modules
 node_modules
 package-lock.json
 
-#Builds
-
-
 #TMPs
 tmp
+*.tmp.txt
+
+#Logs
+*.log
